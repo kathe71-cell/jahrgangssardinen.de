@@ -11,7 +11,11 @@ import {
   CheckCircle2,
   ChevronDown,
   Clock,
-  HelpCircle
+  HelpCircle,
+  Code2,
+  Copy,
+  Check,
+  ShieldCheck
 } from "lucide-react";
 import VintageExplorer from "@/components/VintageExplorer";
 import TastingPairingGuide from "@/components/TastingPairingGuide";
@@ -28,6 +32,14 @@ const AffiliateDisclaimer = () => (
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState("faq-1");
+  const [copiedEmbed, setCopiedEmbed] = useState(false);
+
+  const copyEmbedCode = () => {
+    const code = `<iframe src="https://jahrgangssardinen.de/rechner-embed" width="100%" height="680" style="border:none; border-radius:24px; box-shadow:0 4px 20px rgba(0,0,0,0.08);" title="Jahrgangssardinen Reife-Rechner"></iframe>\n<p style="font-size:12px; color:#64748b; text-align:center;">Rechner bereitgestellt von <a href="https://jahrgangssardinen.de" target="_blank" rel="noopener" style="color:#d97706; text-decoration:underline;">jahrgangssardinen.de</a></p>`;
+    navigator.clipboard.writeText(code);
+    setCopiedEmbed(true);
+    setTimeout(() => setCopiedEmbed(false), 2500);
+  };
 
   const faqs = [
     {
@@ -95,7 +107,7 @@ export default function Home() {
             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold tracking-tight text-white leading-[1.1]">
               Jahrgangssardinen: <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500">
-                Flüssiges Gold in der Dose
+                Kulinarisches Gold in der Dose
               </span>
             </h1>
 
@@ -143,6 +155,17 @@ export default function Home() {
                   <span>Zum Interaktiven Finder</span>
                 </a>
               </Button>
+            </div>
+
+            {/* Position-0 Featured Snippet Definition Box */}
+            <div className="mt-10 text-left bg-slate-900/90 border-l-4 border-amber-400 p-5 rounded-r-2xl border border-slate-800 shadow-xl">
+              <div className="flex items-center gap-2 mb-2 text-xs font-extrabold uppercase tracking-wider text-amber-300">
+                <Sparkles className="w-4 h-4 text-amber-400" />
+                <span>Definition &amp; Warenkunde (Position-0)</span>
+              </div>
+              <p className="text-xs sm:text-sm text-slate-200 leading-relaxed font-medium">
+                Eine <strong className="text-white font-bold">Jahrgangssardine</strong> (französisch <em className="font-semibold">Sardine millésimée</em>) ist eine handverlesene Sommer-Sardine (<em className="font-semibold">Sardina pilchardus</em>), die unaufgetaut und fangfrisch in feinstem nativem Olivenöl extra eingedost wird und über Jahre hinweg in der Dose nachreift. Durch die mehrjährige kühle Lagerung und regelmäßiges Wenden löst sich die Mittelgräte vollständig auf; das Fleisch wird butterzart und verbindet sich mit dem Olivenöl zu einem komplexen Umami-Aroma. Spitzenjahrgänge reifen 5 bis 20 Jahre.
+              </p>
             </div>
           </div>
         </div>
@@ -486,6 +509,36 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Embed Code Widget Box for Food Blogs */}
+      <section className="py-12 bg-[#0B1322] text-white border-y border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+              <div>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold mb-2">
+                  <Code2 className="w-3.5 h-3.5" />
+                  Kostenloses Widget für Gourmet-Blogs &amp; Feinkostportale
+                </div>
+                <h3 className="text-xl font-serif font-bold text-white">Jahrgangssardinen-Reiferechner auf Ihrer Website einbinden</h3>
+                <p className="text-xs sm:text-sm text-slate-400 mt-1">
+                  Bieten Sie Ihren Lesern eine interaktive Reifegrad- und Pairing-Kalkulation per responsivem iFrame.
+                </p>
+              </div>
+              <button
+                onClick={copyEmbedCode}
+                className="self-start md:self-center px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs flex items-center gap-2 transition-colors shadow-sm cursor-pointer shrink-0"
+              >
+                {copiedEmbed ? <Check className="w-4 h-4 text-emerald-950" /> : <Copy className="w-4 h-4" />}
+                <span>{copiedEmbed ? 'Code kopiert!' : 'Embed-Code kopieren'}</span>
+              </button>
+            </div>
+            <div className="bg-slate-950 rounded-lg p-3 text-xs font-mono text-slate-300 overflow-x-auto border border-slate-800">
+              <code>{`<iframe src="https://jahrgangssardinen.de/rechner-embed" width="100%" height="680" style="border:none; border-radius:24px;" title="Jahrgangssardinen Reife-Rechner"></iframe>\n<p style="font-size:12px; color:#64748b; text-align:center;">Bereitgestellt von <a href="https://jahrgangssardinen.de" target="_blank" rel="noopener">jahrgangssardinen.de</a></p>`}</code>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ Accordion Section */}
       <section className="py-20 sm:py-28 bg-[#FAF9F6]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -519,6 +572,46 @@ export default function Home() {
                 </Card>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* E-E-A-T Editorial Trust Box */}
+      <section className="py-16 bg-white border-t border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-[#FAF9F6] rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-xs">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 pb-6 border-b border-slate-200">
+              <div className="w-14 h-14 rounded-2xl bg-amber-100 text-amber-900 flex items-center justify-center font-black text-xl shrink-0">
+                🐟
+              </div>
+              <div>
+                <h4 className="text-xl font-serif font-bold text-slate-950">Fachredaktion jahrgangssardinen.de</h4>
+                <p className="text-xs sm:text-sm text-slate-500">Stand: September 2026 • Sensorisch &amp; lebensmitteltechnisch geprüft (Sardina pilchardus)</p>
+              </div>
+            </div>
+            <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-6 text-xs sm:text-sm text-slate-600">
+              <div>
+                <div className="flex items-center gap-2 font-bold text-slate-900 mb-1">
+                  <ShieldCheck className="w-4 h-4 text-amber-600" />
+                  <span>Manufaktur-Authentizität</span>
+                </div>
+                <p>Verifizierung traditioneller Herstellungsverfahren (handgelegt, unaufgetaut, ohne maschinelle Vorfrittierung).</p>
+              </div>
+              <div>
+                <div className="flex items-center gap-2 font-bold text-slate-900 mb-1">
+                  <Award className="w-4 h-4 text-amber-600" />
+                  <span>Unabhängige Verkostungen</span>
+                </div>
+                <p>Reines Informations- und Warenkundeportal nach § 5 DDG ohne eigene Händlermarke. Objektive Qualitätskriterien.</p>
+              </div>
+              <div>
+                <div className="flex items-center gap-2 font-bold text-slate-900 mb-1">
+                  <Sparkles className="w-4 h-4 text-amber-600" />
+                  <span>Reifeprozess &amp; Lagerstandards</span>
+                </div>
+                <p>Sensorische Begleitung der molekularen Reifung im Olivenöl nach bretonischen und portugiesischen Kellerstandards.</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>

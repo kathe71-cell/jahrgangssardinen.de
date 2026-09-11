@@ -21,9 +21,8 @@ export default function Datenschutz() {
               <h2 className="text-xl font-serif font-bold text-slate-900 mb-2">1. Verantwortlicher</h2>
               <p>
                 Verantwortlicher im Sinne der Datenschutz-Grundverordnung (DSGVO):<br />
-                <strong>Jens Kathe</strong><br />
-                Hansastrasse 6, 34119 Kassel<br />
-                E-Mail: jens@kathe.org
+                <strong>Jens Kathe</strong> – vollständige Anschrift und Kontaktdaten siehe <a href="/impressum" className="text-amber-600 underline">Impressum</a>.<br />
+                E-Mail: <a href="mailto:jens@kathe.org" className="text-amber-600 underline">jens@kathe.org</a>
               </p>
             </div>
 

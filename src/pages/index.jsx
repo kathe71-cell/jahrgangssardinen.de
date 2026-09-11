@@ -11,23 +11,18 @@ import Datenschutz from "./Datenschutz";
 import AGB from "./AGB";
 
 import Cookie from "./Cookie";
+import RechnerEmbed from "./RechnerEmbed";
 
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 
 const PAGES = {
-    
     Home: Home,
-    
     FAQ: FAQ,
-    
     Impressum: Impressum,
-    
     Datenschutz: Datenschutz,
-    
     AGB: AGB,
-    
     Cookie: Cookie,
-    
+    RechnerEmbed: RechnerEmbed,
 }
 
 function _getCurrentPage(url) {
@@ -47,6 +42,10 @@ function _getCurrentPage(url) {
 function PagesContent() {
     const location = useLocation();
     const currentPage = _getCurrentPage(location.pathname);
+
+    if (location.pathname.toLowerCase().includes('rechner-embed') || currentPage === 'RechnerEmbed') {
+        return <RechnerEmbed />;
+    }
     
     return (
         <Layout currentPageName={currentPage}>
@@ -56,25 +55,39 @@ function PagesContent() {
                 
                 
                 <Route path="/Home" element={<Home />} />
+                <Route path="/home" element={<Home />} />
                 
                 <Route path="/FAQ" element={<FAQ />} />
+                <Route path="/faq" element={<FAQ />} />
                 
                 <Route path="/Impressum" element={<Impressum />} />
+                <Route path="/impressum" element={<Impressum />} />
+                <Route path="/zimpressum" element={<Impressum />} />
                 
                 <Route path="/Datenschutz" element={<Datenschutz />} />
+                <Route path="/datenschutz" element={<Datenschutz />} />
+                <Route path="/zdatenschutz" element={<Datenschutz />} />
                 
                 <Route path="/AGB" element={<AGB />} />
+                <Route path="/agb" element={<AGB />} />
                 
                 <Route path="/Cookie" element={<Cookie />} />
+                <Route path="/cookie" element={<Cookie />} />
+
+                <Route path="/rechner-embed" element={<RechnerEmbed />} />
+                <Route path="/RechnerEmbed" element={<RechnerEmbed />} />
                 
             </Routes>
         </Layout>
     );
 }
 
+import VercelAnalytics from "@/components/VercelAnalytics";
+
 export default function Pages() {
     return (
         <Router>
+            <VercelAnalytics />
             <PagesContent />
         </Router>
     );

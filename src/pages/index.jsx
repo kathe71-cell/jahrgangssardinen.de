@@ -13,7 +13,7 @@ import AGB from "./AGB";
 import Cookie from "./Cookie";
 import RechnerEmbed from "./RechnerEmbed";
 
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation, Navigate } from 'react-router-dom';
 
 const PAGES = {
     Home: Home,
@@ -77,6 +77,10 @@ function PagesContent() {
                 <Route path="/rechner-embed" element={<RechnerEmbed />} />
                 <Route path="/RechnerEmbed" element={<RechnerEmbed />} />
                 
+                {/* Fallbacks & Language Redirects */}
+                <Route path="/en" element={<Navigate to="/" replace />} />
+                <Route path="/en/*" element={<Navigate to="/" replace />} />
+                <Route path="*" element={<Home />} />
             </Routes>
         </Layout>
     );

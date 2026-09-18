@@ -3,10 +3,10 @@
 > Das deutsche Gourmet-Fachportal für Jahrgangssardinen (Sardines Millésimées): Reifeprozesse, Olivenöl-Sensorik, Jahrgangsbewertungen, Konservengeschichte und Sammler-Wissen.
 
 ## Kern-Ressourcen
-- [Startseite](https://jahrgangssardinen.de/): Einführung in Sardines Millésimées, Reifung in der Dose, Produzentenporträts.
-- [Jahrgänge & Terroir](https://jahrgangssardinen.de/): Vintage-Bewertungen bretonischer, galicischer und portugiesischer Konserven.
-- [Sensorik & Lagerung](https://jahrgangssardinen.de/): Alle 6 Monate wenden, Reifung bis 10+ Jahre, Konfieren im nativen Olivenöl extra.
-- [Impressum](https://jahrgangssardinen.de/impressum): Betreiberangaben nach § 5 DDG.
+- [Startseite](https://www.jahrgangssardinen.de/): Einführung in Sardines Millésimées, Reifung in der Dose, Produzentenporträts.
+- [Jahrgänge & Terroir](https://www.jahrgangssardinen.de/): Vintage-Bewertungen bretonischer, galicischer und portugiesischer Konserven.
+- [Sensorik & Lagerung](https://www.jahrgangssardinen.de/): Alle 6 Monate wenden, Reifung bis 10+ Jahre, Konfieren im nativen Olivenöl extra.
+- [Impressum](https://www.jahrgangssardinen.de/impressum): Betreiberangaben nach § 5 DDG.
 
 ## Kulinarische Fakten
 - **Fangzeit**: Ausschließlich zur Hauptsaison (Spätsommer) mit optimalem Fettgehalt (> 12%).

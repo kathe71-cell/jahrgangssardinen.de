@@ -47,34 +47,34 @@ export default function Layout({ children, currentPageName }) {
   React.useEffect(() => {
     const pageConfig = {
       'Home': {
-        title: 'Jahrgangssardinen.de - Premium Vintage Sardinen Ratgeber & Kaufguide',
-        description: 'Entdecke edle Jahrgangssardinen von Nuri, La Belle-Iloise & Ortiz. Expertenantworten zum Reifeprozess, Lagerung, Sammlerwert und beste Angebote.',
-        keywords: 'Jahrgangssardinen kaufen, Vintage Sardinen, Nuri Portugal, La Belle-Iloise Frankreich, Ortiz Spanien, Premium Sardinen, Sammlersardinen, Sardinenkonserven, Gourmet Fisch'
+        title: 'Jahrgangssardinen.de - Warenkunde & Ratgeber für Vintage-Sardinen',
+        description: 'Unabhängiger Ratgeber zu Jahrgangssardinen (Sardines de Millésime): Reifeprozess in nativem Olivenöl, Lagerstandards nach BfR-Kriterien, Manufakturen und Sorten.',
+        keywords: 'Jahrgangssardinen, Sardines de Millésime, Nuri Portugal, La Belle-Iloise, Conservas Ortiz, Vintage Sardinen, Lagerung Sardinen, Warenkunde'
       },
       'FAQ': {
         title: 'FAQ Jahrgangssardinen - Häufige Fragen & Antworten | jahrgangssardinen.de',
-        description: 'Alle wichtigen Fragen zu Jahrgangssardinen beantwortet: Lagerung, Hersteller, Reifezeit, Geschmack und Sammlerwert.',
-        keywords: 'Jahrgangssardinen FAQ, Sardinen Fragen, Lagerung Sardinen, Jahrgangssardinen kaufen, Vintage Sardinen Ratgeber'
+        description: 'Fundierte Antworten zu Reifung, Lagerung, BfR-Sicherheitshinweisen, MHD und Manufaktur-Tradition bei Jahrgangssardinen.',
+        keywords: 'Jahrgangssardinen FAQ, Reifung Sardinen, Lagerung Dosen, Haltbarkeit Konserven, Botulismus Vorbeugung'
       },
       'Impressum': {
-        title: 'Impressum | jahrgangssardinen.de - Premium Vintage Sardinen Ratgeber',
-        description: 'Impressum und rechtliche Angaben zu jahrgangssardinen.de - Deutschlands führender Ratgeber für Premium Jahrgangssardinen.',
-        keywords: 'Impressum, Kontakt, jahrgangssardinen.de, Jens Kathe'
+        title: 'Impressum | jahrgangssardinen.de - Warenkunde & Ratgeber',
+        description: 'Impressum und rechtliche Anbieterkennzeichnung gemäß § 5 DDG zu jahrgangssardinen.de.',
+        keywords: 'Impressum, Anbieterkennzeichnung, jahrgangssardinen.de, Jens Kathe'
       },
       'Datenschutz': {
         title: 'Datenschutzerklärung | jahrgangssardinen.de',
-        description: 'Datenschutzerklärung für jahrgangssardinen.de - Informationen zur Verarbeitung deiner Daten.',
-        keywords: 'Datenschutz, DSGVO, Cookies, jahrgangssardinen.de'
+        description: 'Datenschutzerklärung für jahrgangssardinen.de - Informationen zur Verarbeitung personenbezogener Daten gemäß DSGVO.',
+        keywords: 'Datenschutz, DSGVO, Cookies, Vercel, Analytics, jahrgangssardinen.de'
       },
       'AGB': {
-        title: 'AGB - Allgemeine Geschäftsbedingungen | jahrgangssardinen.de',
-        description: 'Allgemeine Geschäftsbedingungen für jahrgangssardinen.de - Affiliate-Website für Premium Jahrgangssardinen.',
-        keywords: 'AGB, Geschäftsbedingungen, Affiliate, jahrgangssardinen.de'
+        title: 'Nutzungsbedingungen | jahrgangssardinen.de',
+        description: 'Allgemeine Nutzungsbedingungen für das Informationsangebot auf jahrgangssardinen.de.',
+        keywords: 'Nutzungsbedingungen, AGB, Affiliate, jahrgangssardinen.de'
       },
       'Cookie': {
-        title: 'Cookie-Richtlinie | jahrgangssardinen.de',
-        description: 'Informationen zur Verwendung von Cookies auf jahrgangssardinen.de und Einstellungen für deine Privatsphäre.',
-        keywords: 'Cookies, Tracking, Analytics, jahrgangssardinen.de'
+        title: 'Cookie-Richtlinie & Einstellungen | jahrgangssardinen.de',
+        description: 'Informationen zur Verwendung von Cookies auf jahrgangssardinen.de sowie Steuerung deiner Privatsphäre-Einstellungen.',
+        keywords: 'Cookies, Privatsphäre, Cookie-Einstellungen, Tracking, jahrgangssardinen.de'
       }
     };
 
@@ -114,11 +114,16 @@ export default function Layout({ children, currentPageName }) {
       document.head.appendChild(keywords);
     }
 
+    const canonicalPath = currentPageName === 'Home' ? '' : currentPageName.toLowerCase();
+    const canonicalUrl = currentPageName === 'Home' 
+      ? 'https://www.jahrgangssardinen.de/' 
+      : `https://www.jahrgangssardinen.de/${canonicalPath}`;
+
     const ogTags = [
       { property: 'og:title', content: config.title },
       { property: 'og:description', content: config.description },
       { property: 'og:type', content: 'website' },
-      { property: 'og:url', content: window.location.href },
+      { property: 'og:url', content: canonicalUrl },
       { property: 'og:site_name', content: 'Jahrgangssardinen.de' },
       { property: 'og:locale', content: 'de_DE' }
     ];
@@ -137,16 +142,34 @@ export default function Layout({ children, currentPageName }) {
 
     let canonical = document.querySelector('link[rel="canonical"]');
     if (canonical) {
-      canonical.href = window.location.href;
+      canonical.href = canonicalUrl;
     } else {
       canonical = document.createElement('link');
       canonical.rel = 'canonical';
-      canonical.href = window.location.href;
+      canonical.href = canonicalUrl;
       document.head.appendChild(canonical);
     }
 
     document.documentElement.lang = 'de';
   }, [currentPageName]);
+
+  const breadcrumbItems = [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Startseite",
+      "item": "https://www.jahrgangssardinen.de/"
+    }
+  ];
+
+  if (currentPageName !== 'Home') {
+    breadcrumbItems.push({
+      "@type": "ListItem",
+      "position": 2,
+      "name": currentPageName,
+      "item": `https://www.jahrgangssardinen.de/${currentPageName.toLowerCase()}`
+    });
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-[#FAF9F6] text-slate-900 font-sans selection:bg-amber-500 selection:text-white">
@@ -159,35 +182,22 @@ export default function Layout({ children, currentPageName }) {
             "@graph": [
               {
                 "@type": "WebSite",
-                "@id": "https://jahrgangssardinen.de/#website",
-                "url": "https://jahrgangssardinen.de/",
+                "@id": "https://www.jahrgangssardinen.de/#website",
+                "url": "https://www.jahrgangssardinen.de/",
                 "name": "Jahrgangssardinen.de",
-                "description": "Deutschlands führender Ratgeber für Premium Vintage Jahrgangssardinen",
+                "description": "Unabhängiges Fach- und Informationsportal für Jahrgangssardinen (Sardines de Millésime), Reifung und traditionelle Manufakturfertigung.",
                 "inLanguage": "de-DE"
               },
               {
                 "@type": "Organization",
-                "@id": "https://jahrgangssardinen.de/#organization",
+                "@id": "https://www.jahrgangssardinen.de/#organization",
                 "name": "Jahrgangssardinen.de",
-                "url": "https://jahrgangssardinen.de/",
-                "logo": "https://jahrgangssardinen.de/favicon.svg"
+                "url": "https://www.jahrgangssardinen.de/",
+                "logo": "https://www.jahrgangssardinen.de/favicon.svg"
               },
               {
                 "@type": "BreadcrumbList",
-                "itemListElement": [
-                  {
-                    "@type": "ListItem",
-                    "position": 1,
-                    "name": "Startseite",
-                    "item": "https://jahrgangssardinen.de/"
-                  },
-                  {
-                    "@type": "ListItem",
-                    "position": 2,
-                    "name": currentPageName,
-                    "item": window.location.href
-                  }
-                ]
+                "itemListElement": breadcrumbItems
               }
             ]
           })
@@ -298,11 +308,11 @@ export default function Layout({ children, currentPageName }) {
                 </span>
               </div>
               <p className="text-sm text-slate-400 leading-relaxed max-w-lg">
-                Deutschlands führendes Magazin & Ratgeber für edle Vintage Jahrgangssardinen aus traditioneller europäischen Manufakturfertigung. Entdecken Sie geschmackliche Raffinesse, optimale Lagerung und seltene Sammlerstücke.
+                Unabhängiges Fach- und Informationsportal für traditionelle Jahrgangssardinen (Sardines de Millésime) aus europäischen Manufakturen. Fundierte Warenkunde, verlässliche Lagerstandards nach BfR-Kriterien und kulinarische Orientierung.
               </p>
               <div className="flex items-center space-x-2 text-xs text-amber-400/90 pt-2">
                 <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                <span>Unabhängig recherchierter Gourmet-Ratgeber mit Direkt-Links.</span>
+                <span>Unabhängig recherchierte Warenkunde mit Händler-Verlinkungen*.</span>
               </div>
             </div>
 
@@ -317,12 +327,12 @@ export default function Layout({ children, currentPageName }) {
                 </li>
                 <li>
                   <a href="/#finder" className="hover:text-amber-400 transition-colors">
-                    Vintage Sardinen Finder
+                    Sorten-Explorer
                   </a>
                 </li>
                 <li>
                   <a href="/#hersteller" className="hover:text-amber-400 transition-colors">
-                    Premium-Hersteller (Nuri, Ortiz, La Belle)
+                    Manufakturen (Nuri, Ortiz, La Belle)
                   </a>
                 </li>
                 <li>
@@ -351,7 +361,7 @@ export default function Layout({ children, currentPageName }) {
                 <li>
                   <button
                     onClick={() => setShowCookieSettings(true)}
-                    className="hover:text-amber-400 transition-colors text-left"
+                    className="hover:text-amber-400 transition-colors text-left cursor-pointer"
                   >
                     Cookie-Einstellungen
                   </button>

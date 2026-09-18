@@ -4,7 +4,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import {
   Award,
   ShoppingCart,
-  TrendingUp,
   Gift,
   Info,
   Sparkles,
@@ -15,7 +14,9 @@ import {
   Code2,
   Copy,
   Check,
-  ShieldCheck
+  ShieldCheck,
+  AlertTriangle,
+  HeartHandshake
 } from "lucide-react";
 import VintageExplorer from "@/components/VintageExplorer";
 import TastingPairingGuide from "@/components/TastingPairingGuide";
@@ -35,7 +36,7 @@ export default function Home() {
   const [copiedEmbed, setCopiedEmbed] = useState(false);
 
   const copyEmbedCode = () => {
-    const code = `<iframe src="https://jahrgangssardinen.de/rechner-embed" width="100%" height="680" style="border:none; border-radius:24px; box-shadow:0 4px 20px rgba(0,0,0,0.08);" title="Jahrgangssardinen Reife-Rechner"></iframe>\n<p style="font-size:12px; color:#64748b; text-align:center;">Rechner bereitgestellt von <a href="https://jahrgangssardinen.de" target="_blank" rel="noopener" style="color:#d97706; text-decoration:underline;">jahrgangssardinen.de</a></p>`;
+    const code = `<iframe id="sardinen-rechner-frame" src="https://www.jahrgangssardinen.de/rechner-embed" width="100%" height="680" style="border:none; border-radius:24px; box-shadow:0 4px 20px rgba(0,0,0,0.08);" title="Jahrgangssardinen Reife- und Lagerrechner"></iframe>\n<script>\n  window.addEventListener('message', function(e) {\n    var allowedOrigins = ['https://www.jahrgangssardinen.de', 'https://jahrgangssardinen.de'];\n    if (!allowedOrigins.includes(e.origin)) return;\n    var frame = document.getElementById('sardinen-rechner-frame');\n    if (!frame || e.source !== frame.contentWindow) return;\n    if (e.data && e.data.type === 'jahrgangssardinen-embed-resize' && typeof e.data.height === 'number') {\n      var h = Math.min(Math.max(e.data.height, 350), 2200);\n      frame.style.height = h + 'px';\n    }\n  });\n</script>\n<p style="font-size:12px; color:#64748b; text-align:center; margin-top:8px;">Bereitgestellt von <a href="https://www.jahrgangssardinen.de" target="_blank" rel="noopener" style="color:#d97706; text-decoration:underline;">jahrgangssardinen.de</a></p>`;
     navigator.clipboard.writeText(code);
     setCopiedEmbed(true);
     setTimeout(() => setCopiedEmbed(false), 2500);
@@ -44,28 +45,33 @@ export default function Home() {
   const faqs = [
     {
       id: "faq-1",
-      question: "Was unterscheidet eine Jahrgangssardine von einer normalen Dosen-Sardine?",
-      answer: "Für Jahrgangssardinen werden ausschließlich fangfrische, besonders fette Sommer-Sardinen (gefangen zwischen Juli und September) von Hand verarbeitet. Sie werden unaufgetaut gereinigt, in feinstem nativen Olivenöl extra eingelegt und reifen wie ein edler Wein über Jahre hinweg direkt in der Dose nach."
+      question: "Was unterscheidet eine Jahrgangssardine von einer Standard-Konserve?",
+      answer: "Für echte Jahrgangssardinen (Sardines de Millésime) werden ausschließlich fangfrische, handverlesene Sommersardinen (Sardina pilchardus) mit hohem Fettgehalt (>12%) verarbeitet. Sie werden unaufgetaut gereinigt, traditionell in feinstem nativem Olivenöl extra eingedost und reifen bei kontrollierter kühler Lagerung wie ein edler Wein über Jahre hinweg in der Dose nach."
     },
     {
       id: "faq-2",
-      question: "Wie lange kann man Jahrgangssardinen aufbewahren?",
-      answer: "Dosen-Sardinen in hochwertigem Olivenöl verdorben nicht nach wenigen Jahren – sie verbessern sich! Unter optimalen Bedingungen (12–15°C) können Spitzen-Jahrgangssardinen 10 bis 20 Jahre gelagert werden. Mit der Zeit löst sich die Mittelgräte vollständig auf."
+      question: "Wie lange kann man Jahrgangssardinen lagern und was bedeutet das MHD?",
+      answer: "Konserven tragen gesetzlich ein Mindesthaltbarkeitsdatum (MHD) von meist 5 bis 10 Jahren ab Abfüllung. Bei lückenloser, kühler Lagerung (12–15 °C) behalten sie ihre Genusstauglichkeit oft deutlich länger. Durch das Olivenöl und den Garprozess wird das Fleisch mürber und die Mittelgräte butterweich (sie löst sich jedoch anatomisch nicht vollständig auf). Ohne verlässliche Kühllagerung gibt es keine Haltbarkeitsgarantie."
     },
     {
       id: "faq-3",
-      question: "Warum sollte man die Dosen regelmäßig wenden?",
+      question: "Warum sollten die Dosen regelmäßig gewendet werden?",
       answer: "Durch das Wenden der Dose (alle 6 Monate um 180 Grad) verteilt sich das Olivenöl gleichmäßig um das Fischfleisch. Dadurch wird verhindert, dass eine Seite austrocknet, während die andere Seite im Öl reift."
     },
     {
       id: "faq-4",
-      question: "Welche Marken stellen die besten Vintage-Sardinen her?",
-      answer: "Die unangefochtenen Pioniere sind Nuri (Pinhais & Cia aus Portugal, seit 1920), La Belle-Iloise (Bretagne, Frankreich, seit 1932) und Conservas Ortiz (Baskenland, Spanien, seit 1891). Alle drei stehen für 100% Handarbeit."
+      question: "Welche Manufakturen sind für traditionelle Jahrgangs- und Lagersardinen bekannt?",
+      answer: "Bekannte europäische Conserveries sind Conserverie La Belle-Iloise (Bretagne, offizielle Jahrgangsauslesen mit Künstlerdosen), Pinhais & Cia mit der Marke Nuri (Portugal, traditionelle Handfertigung) und Conservas Ortiz (Baskenland, Sardinas A La Antigua)."
     },
     {
       id: "faq-5",
-      question: "Eignen sich Jahrgangssardinen als Wertanlage oder Geschenk?",
-      answer: "Ja! Seltene Jahrgänge in gut erhaltenen Dosen erzielen bei Sammlern und Gourmets oft erhebliche Wertsteigerungen (bis zu +400% nach 10 Jahren). Zudem sind sie dank ihres edlen Designs ein stilvolles Präsent für Feinschmecker."
+      question: "Haben Jahrgangssardinen einen Sammlerwert oder eignen sie sich als Geschenk?",
+      answer: "Limitierte Künstlerdosen und spezielle Fangjahrgänge sind beliebte Geschenke für Feinschmecker (z. B. zum Geburts- oder Jubiläumsjahr). Sie sind jedoch hochwertige Lebensmittel und keine garantierte Finanzanlage; ein privater Zweitmarkt unterliegt starken Schwankungen."
+    },
+    {
+      id: "faq-6",
+      question: "Wie erkenne ich, ob eine ältere Dose noch sicher verzehrt werden kann?",
+      answer: "Anhand der BfR-Kriterien: Aufgeblähte Dosen (Bombagen) oder undichte Falze dürfen unter keinen Umständen geöffnet, verkostet oder verzehrt werden (Gefahr von Botulismus). Nach dem Öffnen müssen Geruch und Farbe einwandfrei sein; bei stechendem, metallischem oder ranzigem Geruch die Konserve sofort entsorgen."
     }
   ];
 
@@ -100,7 +106,7 @@ export default function Home() {
             {/* Top Badge */}
             <div className="inline-flex items-center space-x-2 bg-amber-500/10 text-amber-400 border border-amber-500/30 px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold uppercase tracking-widest mb-6">
               <Sparkles className="w-4 h-4 text-amber-400" />
-              <span>Gourmet Delikatesse & Sammlerstück</span>
+              <span>Gourmet-Warenkunde &amp; Kulinarischer Ratgeber</span>
             </div>
 
             {/* Main Headline */}
@@ -113,7 +119,7 @@ export default function Home() {
 
             {/* Subtitle */}
             <p className="mt-6 sm:mt-8 text-lg sm:text-2xl text-slate-300 max-w-3xl mx-auto font-sans font-light leading-relaxed">
-              Wie edle Weine entwickeln echte Vintage-Sardinen mit jedem Jahr der Reifung eine cremigere Textur und tiefere Umami-Aromen. Entdecken Sie europäische Spitzen-Manufakturen.
+              Wie edle Weine entwickeln Jahrgangssardinen bei sachgerechter Reifung in nativem Olivenöl extra eine mürbere Textur und tiefere Umami-Aromen. Entdecken Sie europäische Manufakturen und fundierte Lagerstandards.
             </p>
 
             {/* Trust Badges */}
@@ -128,7 +134,7 @@ export default function Home() {
               </div>
               <div className="flex items-center space-x-2 bg-slate-900/80 px-3.5 py-1.5 rounded-lg border border-slate-800">
                 <CheckCircle2 className="w-4 h-4 text-amber-400" />
-                <span>Reifung bis zu 10+ Jahre</span>
+                <span>Reifung nach Manufaktur-Tradition</span>
               </div>
             </div>
 
@@ -137,7 +143,7 @@ export default function Home() {
               <Button
                 asChild
                 size="lg"
-                className="w-full sm:w-auto bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold px-8 py-4 sm:py-6 rounded-2xl text-base sm:text-lg shadow-xl shadow-amber-500/25 transition-all duration-300 hover:scale-105"
+                className="w-full sm:w-auto bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold px-8 py-4 sm:py-6 rounded-2xl text-base sm:text-lg shadow-xl shadow-amber-500/25 transition-all duration-300 hover:scale-105 cursor-pointer"
               >
                 <a href="https://amzn.to/3HKUksF" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center space-x-2">
                   <ShoppingCart className="w-5 h-5" />
@@ -149,7 +155,7 @@ export default function Home() {
                 asChild
                 variant="outline"
                 size="lg"
-                className="w-full sm:w-auto border-slate-700 bg-slate-900/60 hover:bg-slate-800 text-white font-medium px-8 py-4 sm:py-6 rounded-2xl text-base sm:text-lg transition-all"
+                className="w-full sm:w-auto border-slate-700 bg-slate-900/60 hover:bg-slate-800 text-white font-medium px-8 py-4 sm:py-6 rounded-2xl text-base sm:text-lg transition-all cursor-pointer"
               >
                 <a href="#finder">
                   <span>Zum Interaktiven Finder</span>
@@ -157,14 +163,14 @@ export default function Home() {
               </Button>
             </div>
 
-            {/* Position-0 Featured Snippet Definition Box */}
+            {/* Definition Box */}
             <div className="mt-10 text-left bg-slate-900/90 border-l-4 border-amber-400 p-5 rounded-r-2xl border border-slate-800 shadow-xl">
               <div className="flex items-center gap-2 mb-2 text-xs font-extrabold uppercase tracking-wider text-amber-300">
                 <Sparkles className="w-4 h-4 text-amber-400" />
-                <span>Definition &amp; Warenkunde (Position-0)</span>
+                <span>Definition &amp; Warenkunde: Sardines de Millésime</span>
               </div>
               <p className="text-xs sm:text-sm text-slate-200 leading-relaxed font-medium">
-                Eine <strong className="text-white font-bold">Jahrgangssardine</strong> (französisch <em className="font-semibold">Sardine millésimée</em>) ist eine handverlesene Sommer-Sardine (<em className="font-semibold">Sardina pilchardus</em>), die unaufgetaut und fangfrisch in feinstem nativem Olivenöl extra eingedost wird und über Jahre hinweg in der Dose nachreift. Durch die mehrjährige kühle Lagerung und regelmäßiges Wenden löst sich die Mittelgräte vollständig auf; das Fleisch wird butterzart und verbindet sich mit dem Olivenöl zu einem komplexen Umami-Aroma. Spitzenjahrgänge reifen 5 bis 20 Jahre.
+                Eine <strong className="text-white font-bold">Jahrgangssardine</strong> (französisch <em className="font-semibold">Sardine millésimée</em>) ist eine handverlesene Sommer-Sardine (<em className="font-semibold">Sardina pilchardus</em>), die unaufgetaut und fangfrisch in feinstem nativem Olivenöl extra eingedost wird und über Jahre hinweg bei kontrollierten Kellerbedingungen nachreift. Durch die mehrjährige kühle Lagerung und regelmäßiges Wenden wird das Fleisch butterzart, die Mittelgräte mürbe und essbar und das Olivenöl verbindet sich mit den Fischölen zu einem komplexen Umami-Aroma.
               </p>
             </div>
           </div>
@@ -179,68 +185,71 @@ export default function Home() {
             <div className="lg:col-span-6 space-y-6">
               <div className="inline-flex items-center space-x-2 text-amber-700 text-xs font-semibold uppercase tracking-widest bg-amber-50 px-3 py-1 rounded-full border border-amber-200/60">
                 <Award className="w-4 h-4 text-amber-600" />
-                <span>Gourmet Wissen</span>
+                <span>Gourmet-Wissen</span>
               </div>
 
               <h2 className="text-3xl sm:text-5xl font-serif font-bold text-slate-950 tracking-tight leading-tight">
-                Warum werden Sardinen mit dem Alter immer besser?
+                Wie entwickeln sich Jahrgangssardinen während der Lagerung?
               </h2>
 
               <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
-                Der Unterschied zwischen einer gewöhnlichen Supermarkt-Sardine und einer echten <strong>Jahrgangssardine (Millésimée)</strong> liegt im Fettgehalt des Fisches und in der handwerklichen Veredelung.
+                Der Unterschied zwischen einer gewöhnlichen Supermarkt-Sardine und einer echten <strong>Jahrgangssardine (Millésimée)</strong> liegt im Fettgehalt des Fisches und in der schonenden handwerklichen Veredelung.
               </p>
 
               <p className="text-slate-600 text-base leading-relaxed">
-                Im Gegensatz zu Magerfisch enthalten Sommer-Sardinen reichlich wertvolle Omega-3-Fettsäuren. Wenn diese fangfrisch in feinstes natives Olivenöl eingelegt werden, beginnt ein magischer molekularer Prozess: Das Öl durchdringt das Fischfleisch und wandelt die Struktur von fest zu samtig-cremig.
+                Im Gegensatz zu Magerfisch enthalten Sommer-Sardinen reichlich wertvolle Omega-3-Fettsäuren. Wenn diese fangfrisch in feinstes natives Olivenöl eingelegt werden, setzt bei kühlen Temperaturen ein geschmacklicher Reifeprozess ein: Das Olivenöl umschließt das Gewebe, das Fleisch wird zarter und die Gräten werden weich und mürbe.
               </p>
 
               <div className="pt-4 grid grid-cols-2 gap-4">
                 <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200">
                   <h4 className="font-serif font-bold text-slate-900 text-lg">Sommerfang</h4>
-                  <p className="text-xs text-slate-500 mt-1">Nur Fische mit &gt; 12% Fettgehalt werden ausgewählt.</p>
+                  <p className="text-xs text-slate-500 mt-1">Nur Fische mit hohem natürlichem Fettgehalt (&gt; 12%) werden ausgewählt.</p>
                 </div>
                 <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200">
                   <h4 className="font-serif font-bold text-slate-900 text-lg">Handgeschuppt</h4>
-                  <p className="text-xs text-slate-500 mt-1">Traditionelle Handarbeit garantiert Makellosigkeit.</p>
+                  <p className="text-xs text-slate-500 mt-1">Traditionelle Handarbeit schont die Unversehrtheit des Fischfleisches.</p>
                 </div>
               </div>
             </div>
 
             {/* Timeline Visual Cards */}
             <div className="lg:col-span-6 bg-[#0B1322] text-white p-8 sm:p-10 rounded-3xl border border-slate-800 shadow-2xl relative">
-              <h3 className="text-xl sm:text-2xl font-serif font-bold text-amber-400 mb-6 flex items-center gap-2">
+              <h3 className="text-xl sm:text-2xl font-serif font-bold text-amber-400 mb-2 flex items-center gap-2">
                 <Clock className="w-6 h-6" />
-                <span>Die 3 Phasen des Reifeprozesses</span>
+                <span>Sensorische Reifestufen</span>
               </h3>
+              <p className="text-xs text-slate-400 mb-6 leading-relaxed">
+                Unverbindliche kulinarische Orientierung nach Sommelier- und Herstellererfahrungen (z.&nbsp;B. La Belle-Iloise). Der optimale Genusszeitpunkt bleibt eine persönliche Geschmacksfrage.
+              </p>
 
               <div className="space-y-6 relative before:absolute before:left-4 before:top-3 before:bottom-3 before:w-0.5 before:bg-slate-800">
                 {/* Phase 1 */}
                 <div className="relative pl-10">
                   <div className="absolute left-2 top-1.5 w-4 h-4 bg-amber-400 rounded-full -translate-x-1/2 ring-4 ring-slate-900" />
-                  <span className="text-xs font-bold text-amber-400 uppercase tracking-widest">Phase 1: 1 bis 3 Jahre</span>
-                  <h4 className="text-lg font-serif font-semibold text-white">Frische & Fruchtiges Olivenöl</h4>
+                  <span className="text-xs font-bold text-amber-400 uppercase tracking-widest">Orientierung 1 bis 3 Jahre</span>
+                  <h4 className="text-lg font-serif font-semibold text-white">Frische Meeresnote &amp; fruchtiges Öl</h4>
                   <p className="text-slate-400 text-xs sm:text-sm mt-1 leading-relaxed">
-                    Das Fischfleisch nimmt die ersten Nuancen des Olivenöls auf. Die Textur wird zart, behält aber noch einen leichten, frischen Biss.
+                    Das feste Fischfleisch behält seinen kernigen Biss. Das native Olivenöl extra besitzt noch frische grasige Noten.
                   </p>
                 </div>
 
                 {/* Phase 2 */}
                 <div className="relative pl-10">
                   <div className="absolute left-2 top-1.5 w-4 h-4 bg-amber-400 rounded-full -translate-x-1/2 ring-4 ring-slate-900" />
-                  <span className="text-xs font-bold text-amber-400 uppercase tracking-widest">Phase 2: 3 bis 7 Jahre</span>
-                  <h4 className="text-lg font-serif font-semibold text-white">Cremige Verschmelzung</h4>
+                  <span className="text-xs font-bold text-amber-400 uppercase tracking-widest">Orientierung 4 bis 7 Jahre</span>
+                  <h4 className="text-lg font-serif font-semibold text-white">Harmonische Verschmelzung</h4>
                   <p className="text-slate-400 text-xs sm:text-sm mt-1 leading-relaxed">
-                    Das Optimum für die meisten Gourmets. Das Öl hat das Fleisch vollständig durchdrungen. Die Mittelgräte wird butterweich und essbar.
+                    Von vielen Manufakturen und Sommeliers als harmonischer Reifebereich beschrieben. Das Fleisch wird mürbe und zart; die Mittelgräte wird durch die Einwirkung der Hitzesterilisation und des Öls weich und mitessbar.
                   </p>
                 </div>
 
                 {/* Phase 3 */}
                 <div className="relative pl-10">
                   <div className="absolute left-2 top-1.5 w-4 h-4 bg-amber-400 rounded-full -translate-x-1/2 ring-4 ring-slate-900" />
-                  <span className="text-xs font-bold text-amber-400 uppercase tracking-widest">Phase 3: 7 bis 12+ Jahre</span>
-                  <h4 className="text-lg font-serif font-semibold text-white">Vintage Umami-Explosion</h4>
+                  <span className="text-xs font-bold text-amber-400 uppercase tracking-widest">Orientierung 8 bis 12+ Jahre (Liebhaber-Horizont)</span>
+                  <h4 className="text-lg font-serif font-semibold text-white">Tiefe Umami-Entfaltung</h4>
                   <p className="text-slate-400 text-xs sm:text-sm mt-1 leading-relaxed">
-                    Seltene Delikatesse. Komplette Umwandlung in eine confit-artige Textur mit tiefen Noten von Nüssen, Butter und maritimem Bouquet.
+                    Confit-artige Textur mit Noten von gerösteten Nüssen und Meersalz. Setzt ausnahmslos unbeschädigte Dosenfalze und dauerhaft kühle, trockene Lagerung (12–15&nbsp;°C) voraus.
                   </p>
                 </div>
               </div>
@@ -264,13 +273,13 @@ export default function Home() {
           <div className="text-center max-w-3xl mx-auto mb-16">
             <div className="inline-flex items-center space-x-2 text-amber-700 text-xs font-semibold uppercase tracking-widest bg-amber-50 px-3 py-1 rounded-full border border-amber-200/60 mb-3">
               <Award className="w-4 h-4 text-amber-600" />
-              <span>Tradition & Manufaktur</span>
+              <span>Tradition &amp; Manufaktur</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-serif font-bold text-slate-950 tracking-tight">
-              Die Ikonen der Konserven-Kunst
+              Europäische Manufaktur-Tradition
             </h2>
             <p className="text-slate-600 text-base sm:text-lg mt-4 leading-relaxed">
-              Drei Namen prägen die Welt der Jahrgangssardinen seit Generationen. Jede Manufaktur hat ihre eigene Geheimrezeptur und Tradition.
+              Traditionsbetriebe mit jahrzehntelanger Erfahrung prägen die handwerkliche Herstellung edler Dosen-Sardinen.
             </p>
           </div>
 
@@ -281,24 +290,35 @@ export default function Home() {
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-2xl">🇵🇹</span>
-                    <span className="text-xs font-bold text-amber-900 bg-amber-100 px-3 py-1 rounded-full">Seit 1920</span>
+                    <span className="text-xs font-bold text-amber-900 bg-amber-100 px-3 py-1 rounded-full">Gegründet 1920</span>
                   </div>
                   <h3 className="text-2xl font-serif font-bold text-slate-950 group-hover:text-amber-700 transition-colors mb-2">
-                    Nuri (Pinhais & Cia)
+                    Nuri (Pinhais &amp; Cia)
                   </h3>
                   <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">Matosinhos, Portugal</p>
                   <p className="text-slate-600 text-sm leading-relaxed mb-6">
-                    Portugals wohl bekannteste Manufaktur. Jede Sardine wird von Hand selektiert und in die ikonische gelbe Umhüllung gewickelt. Legendär für die Variante mit Piri-Piri Chilli.
+                    Portugiesische Traditionsmanufaktur. Jede Sardine wird von Hand selektiert, gedämpft und in die ikonische Umhüllung gewickelt. Bekannt für traditionelle Lagerware und die pikante Variante mit Piri-Piri.
                   </p>
                 </div>
 
                 <div>
-                  <div className="border-t border-slate-200 pt-4 mb-6 text-xs text-slate-500 space-y-1">
-                    <p><strong>Besonderheit:</strong> Handgefüllt mit echten Gewürzen</p>
-                    <p><strong>Reifeempfehlung:</strong> Optimum nach 3-5 Jahren</p>
+                  <div className="border-t border-slate-200 pt-4 mb-4 text-xs text-slate-500 space-y-1">
+                    <p><strong>Charakteristik:</strong> Handgefüllt mit echten Gewürzen</p>
+                    <p><strong>Kulinarische Orientierung:</strong> Reift laut Kennern bei kühler Lagerung nach; ab Werk bereits verzehrfertig</p>
+                    <p>
+                      <strong>Hersteller-Website:</strong>{" "}
+                      <a
+                        href="https://www.conservaspinhais.pt"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-amber-800 hover:underline font-semibold"
+                      >
+                        conservaspinhais.pt ↗
+                      </a>
+                    </p>
                   </div>
 
-                  <Button asChild className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl shadow-md text-sm">
+                  <Button asChild className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl shadow-md text-sm cursor-pointer">
                     <a href="https://amzn.to/3HQskUt" target="_blank" rel="noopener noreferrer">
                       <ShoppingCart className="w-4 h-4 mr-2" />
                       Nuri Angebote ansehen*
@@ -314,24 +334,35 @@ export default function Home() {
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-2xl">🇫🇷</span>
-                    <span className="text-xs font-bold text-indigo-900 bg-indigo-100 px-3 py-1 rounded-full">Seit 1932</span>
+                    <span className="text-xs font-bold text-indigo-900 bg-indigo-100 px-3 py-1 rounded-full">Gegründet 1932</span>
                   </div>
                   <h3 className="text-2xl font-serif font-bold text-slate-950 group-hover:text-indigo-700 transition-colors mb-2">
                     La Belle-Iloise
                   </h3>
                   <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">Quiberon, Bretagne</p>
                   <p className="text-slate-600 text-sm leading-relaxed mb-6">
-                    Die Speerspitze der französischen Konserven-Gourmetküche. Bekannt für streng limitierte "Millésimés" Jahrgangsdosen mit künstlerischen Sammler-Illustrationen.
+                    Traditionelle Conserverie der französischen Atlantikküste. Bekannt für offizielle "Millésimés" Jahrgangsdosen mit künstlerischen Sammler-Illustrationen und hohem Fettgehalt.
                   </p>
                 </div>
 
                 <div>
-                  <div className="border-t border-slate-200 pt-4 mb-6 text-xs text-slate-500 space-y-1">
-                    <p><strong>Besonderheit:</strong> Nummerierte Künstler-Dosen</p>
-                    <p><strong>Reifeempfehlung:</strong> Bis 10+ Jahre lagerfähig</p>
+                  <div className="border-t border-slate-200 pt-4 mb-4 text-xs text-slate-500 space-y-1">
+                    <p><strong>Charakteristik:</strong> Offizielle Millésimes in Künstlerdosen</p>
+                    <p><strong>Herstellerempfehlung:</strong> Mehrjährige Reifezeit im kühlen Keller empfohlen</p>
+                    <p>
+                      <strong>Hersteller-Website:</strong>{" "}
+                      <a
+                        href="https://www.labelleiloise.fr"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-indigo-800 hover:underline font-semibold"
+                      >
+                        labelleiloise.fr ↗
+                      </a>
+                    </p>
                   </div>
 
-                  <Button asChild className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl shadow-md text-sm">
+                  <Button asChild className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl shadow-md text-sm cursor-pointer">
                     <a href="https://amzn.to/4mrVMPz" target="_blank" rel="noopener noreferrer">
                       <ShoppingCart className="w-4 h-4 mr-2" />
                       La Belle-Iloise ansehen*
@@ -347,24 +378,35 @@ export default function Home() {
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-2xl">🇪🇸</span>
-                    <span className="text-xs font-bold text-emerald-900 bg-emerald-100 px-3 py-1 rounded-full">Seit 1891</span>
+                    <span className="text-xs font-bold text-emerald-900 bg-emerald-100 px-3 py-1 rounded-full">Gegründet 1891</span>
                   </div>
                   <h3 className="text-2xl font-serif font-bold text-slate-950 group-hover:text-emerald-700 transition-colors mb-2">
                     Conservas Ortiz
                   </h3>
                   <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">Baskenland, Spanien</p>
                   <p className="text-slate-600 text-sm leading-relaxed mb-6">
-                    Spanischer Traditionsbetrieb an der Kante des Golfe de Gascogne. Ortiz fängt Sardinen ausschließlich nach traditioneller Methode, um das Fleisch nicht zu beschädigen.
+                    Spanischer Traditionsbetrieb im Baskenland. Verarbeitet Sardinen fangfrisch nach der traditionellen Methode 'A La Antigua' von Hand.
                   </p>
                 </div>
 
                 <div>
-                  <div className="border-t border-slate-200 pt-4 mb-6 text-xs text-slate-500 space-y-1">
-                    <p><strong>Besonderheit:</strong> Sardinas A La Antigua</p>
-                    <p><strong>Reifeempfehlung:</strong> 3-7 Jahre im kühlen Keller</p>
+                  <div className="border-t border-slate-200 pt-4 mb-4 text-xs text-slate-500 space-y-1">
+                    <p><strong>Charakteristik:</strong> Sardinas A La Antigua in feinstem Öl</p>
+                    <p><strong>Kulinarische Orientierung:</strong> Unverbindliche Reifepräferenz von 3–7 Jahren im Weinkeller</p>
+                    <p>
+                      <strong>Hersteller-Website:</strong>{" "}
+                      <a
+                        href="https://www.conservasortiz.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-emerald-800 hover:underline font-semibold"
+                      >
+                        conservasortiz.com ↗
+                      </a>
+                    </p>
                   </div>
 
-                  <Button asChild className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl shadow-md text-sm">
+                  <Button asChild className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl shadow-md text-sm cursor-pointer">
                     <a href="https://amzn.to/4lL1OKj" target="_blank" rel="noopener noreferrer">
                       <ShoppingCart className="w-4 h-4 mr-2" />
                       Ortiz Angebote ansehen*
@@ -384,91 +426,87 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Collector Value & Investment */}
+      {/* Collector Value & Gift Culture */}
       <section className="py-20 sm:py-28 bg-[#0B1322] text-white border-y border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
             <div className="lg:col-span-6 space-y-6">
               <div className="inline-flex items-center space-x-2 text-amber-400 text-xs font-semibold uppercase tracking-widest bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/20">
-                <TrendingUp className="w-4 h-4 text-amber-400" />
-                <span>Sammlerwert & Wertanlage</span>
+                <HeartHandshake className="w-4 h-4 text-amber-400" />
+                <span>Sammlerleidenschaft &amp; Schenkkultur</span>
               </div>
 
               <h2 className="text-3xl sm:text-5xl font-serif font-bold text-white tracking-tight leading-tight">
-                Warum vergraben Feinschmecker Sardinen im Keller?
+                Warum sammeln Feinschmecker limitierte Jahrgangsdosen?
               </h2>
 
               <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
-                Jahrgangssardinen sind nicht nur ein kulinarischer Hochgenuss, sondern haben sich zu begehrten Sammlerobjekten entwickelt. Da die Jahresproduktionen limitierter Editionen rasch vergriffen sind, steigen die Preise mit zunehmendem Alter der Dosen steil an.
+                Jahrgangssardinen sind weit mehr als einfache Konserven: Die Kombination aus limitierter Jahresproduktion, künstlerisch gestalteten Dosenmotiven und der Reifefähigkeit im Olivenöl macht sie zu geschätzten Objekten für Gourmets und Liebhaber.
               </p>
 
               <div className="space-y-4 pt-2">
                 <div className="flex items-start space-x-3 bg-slate-900/80 p-4 rounded-2xl border border-slate-800">
                   <Award className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="font-bold text-white text-sm">Limitierte Kunst-Dosen</h4>
-                    <p className="text-xs text-slate-400 mt-0.5">Sondereditionen von La Belle-Iloise erzielen nach 10 Jahren oft das 3- bis 5-fache des Ausgabepreises.</p>
+                    <h4 className="font-bold text-white text-sm">Limitierte Kunst-Editionen</h4>
+                    <p className="text-xs text-slate-400 mt-0.5">Jährlich wechselnde Illustrationen bekannter Künstler machen jede Fang-Saison unverwechselbar.</p>
                   </div>
                 </div>
 
                 <div className="flex items-start space-x-3 bg-slate-900/80 p-4 rounded-2xl border border-slate-800">
                   <Gift className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="font-bold text-white text-sm">Der magische 10-Jahres-Horizont</h4>
-                    <p className="text-xs text-slate-400 mt-0.5">Vollständige Umwandlung der Gräte in feinsten Schmelz macht 2012/2015er Jahrgänge zu gesuchten Kuriositäten.</p>
+                    <h4 className="font-bold text-white text-sm">Jubiläums- &amp; Jahrgangspräsente</h4>
+                    <p className="text-xs text-slate-400 mt-0.5">Beliebtes Präsent zu runden Geburtstagen, Hochzeiten oder Firmenjubiläen passend zum jeweiligen Jahrgang.</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Value Development Card */}
+            {/* Collector Context Card */}
             <div className="lg:col-span-6 bg-slate-900/90 rounded-3xl p-8 border border-slate-800 shadow-2xl">
               <h3 className="text-xl font-serif font-bold text-amber-400 mb-6 flex items-center gap-2">
-                <TrendingUp className="w-5 h-5 text-amber-400" />
-                <span>Historische Wertentwicklung (Beispiele)</span>
+                <Sparkles className="w-5 h-5 text-amber-400" />
+                <span>Kulturelle Sammlerbereiche im Überblick</span>
               </h3>
 
               <div className="space-y-4">
-                <div className="p-4 bg-slate-950/80 rounded-2xl border border-emerald-500/30 flex justify-between items-center">
-                  <div>
-                    <h4 className="font-bold text-white text-sm">Nuri Vintage 2010</h4>
-                    <p className="text-xs text-slate-400">Ausgabepreis ~4,50 €</p>
-                  </div>
-                  <div className="text-right">
-                    <span className="text-lg font-bold text-emerald-400">~ 65,00 €</span>
-                    <p className="text-[10px] font-bold text-emerald-500">+ 1.340% Rendite</p>
-                  </div>
+                <div className="p-4 bg-slate-950/80 rounded-2xl border border-indigo-500/30">
+                  <h4 className="font-bold text-white text-sm">Offizielle Jahrgangsauslesen (Millésimées)</h4>
+                  <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                    Dosen mit fest aufgedrucktem Fangjahr und speziellem Artwork (z. B. La Belle-Iloise). Streng nach Fangsommern limitiert.
+                  </p>
                 </div>
 
-                <div className="p-4 bg-slate-950/80 rounded-2xl border border-indigo-500/30 flex justify-between items-center">
-                  <div>
-                    <h4 className="font-bold text-white text-sm">La Belle-Iloise Millésimé 2015</h4>
-                    <p className="text-xs text-slate-400">Ausgabepreis ~6,90 €</p>
-                  </div>
-                  <div className="text-right">
-                    <span className="text-lg font-bold text-indigo-300">~ 48,00 €</span>
-                    <p className="text-[10px] font-bold text-indigo-400">+ 595% Rendite</p>
-                  </div>
+                <div className="p-4 bg-slate-950/80 rounded-2xl border border-amber-500/30">
+                  <h4 className="font-bold text-white text-sm">Traditionelle Keller-Lagerware</h4>
+                  <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                    Manufaktur-Dosen (z. B. Nuri, Ortiz), die von Liebhabern über 3 bis 7 Jahre im privaten Keller gereift werden.
+                  </p>
                 </div>
 
-                <div className="p-4 bg-slate-950/80 rounded-2xl border border-amber-500/30 flex justify-between items-center">
-                  <div>
-                    <h4 className="font-bold text-white text-sm">Ortiz Gran Reserva 2008</h4>
-                    <p className="text-xs text-slate-400">Ausgabepreis ~5,80 €</p>
-                  </div>
-                  <div className="text-right">
-                    <span className="text-lg font-bold text-amber-400">~ 75,00 €</span>
-                    <p className="text-[10px] font-bold text-amber-500">+ 1.190% Rendite</p>
-                  </div>
+                <div className="p-4 bg-slate-950/80 rounded-2xl border border-emerald-500/30">
+                  <h4 className="font-bold text-white text-sm">Vertikale Vergleichs-Tastings</h4>
+                  <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                    Verkostung aufeinanderfolgender Jahrgänge derselben Manufaktur, um klimatische Einflüsse und Reifephasen sensorisch nachzuvollziehen.
+                  </p>
                 </div>
               </div>
 
+              {/* Transparenzhinweis */}
+              <div className="mt-5 p-3.5 bg-slate-950 rounded-xl border border-slate-800 text-[11px] text-slate-400 leading-relaxed flex items-start gap-2">
+                <Info className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+                <span>
+                  <strong>Sachlicher Hinweis:</strong> Jahrgangssardinen sind hochwertige Lebensmittel und Genussartikel, keine Finanzanlagen. Ein privater Zweitmarkt unterliegt unvorhersehbaren Schwankungen; es gibt keinerlei Rendite- oder Wertsteigerungsgarantie.
+                </span>
+              </div>
+
               <div className="mt-6 text-center">
-                <Button asChild size="lg" className="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3.5 rounded-xl shadow-lg">
+                <Button asChild size="lg" className="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3.5 rounded-xl shadow-lg cursor-pointer">
                   <a href="https://amzn.to/3HKUksF" target="_blank" rel="noopener noreferrer">
                     <ShoppingCart className="w-4 h-4 mr-2" />
-                    Jetzt aktuelle Jahrgänge zum Einlagern sichern*
+                    Sortiment und Jahrgangssorten ansehen*
                   </a>
                 </Button>
               </div>
@@ -478,7 +516,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Storage Protocol Rules */}
+      {/* Storage Protocol Rules - Exactly 7 Rules */}
       <section className="py-20 sm:py-28 bg-white border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
@@ -486,18 +524,19 @@ export default function Home() {
               Die 7 goldenen Regeln der Lagerung
             </h2>
             <p className="text-slate-600 text-base sm:text-lg mt-4 leading-relaxed">
-              Damit eine Jahrgangssardine ihr volles Potenzial entfaltet, müssen folgende Lagerbedingungen eingehalten werden:
+              Damit Jahrgangssardinen schonend reifen und ihre Genusstauglichkeit behalten, sollten folgende Kriterien beachtet werden:
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { num: "01", title: "Konstante Kühle", text: "Optimal sind 12–15 °C (Weinkeller oder kühler Vorratsraum). Keinesfalls über 20 °C." },
-              { num: "02", title: "Dunkelheit", text: "Lichtgeschützt aufbewahren. UV-Strahlung kann das hochwertige Olivenöl schädigen." },
-              { num: "03", title: "Alle 6 Monate wenden", text: "Die Dosen regelmäßig um 180 Grad drehen, damit das Olivenöl den Fisch gleichmäßig umschmeichelt." },
-              { num: "04", title: "Trockene Umgebung", text: "Achten Sie auf geringe Luftfeuchtigkeit, um Rostansatz an den Dosenfalzen zu vermeiden." },
-              { num: "05", title: "Schonende Handhabung", text: "Stürze und Dellen vermeiden. Beschädigte Dosen sollten direkt verzehrt werden." },
-              { num: "06", title: "Geduld bewahren", text: "Mindestens 3 Jahre ab Fangdatum reifen lassen, bevor die Dose für besondere Anlässe geöffnet wird." }
+              { num: "01", title: "Konstante Kühle", text: "Optimal sind 12–15 °C (Weinkeller oder kühler Vorratsraum). Keinesfalls dauerhaft über 20 °C lagern." },
+              { num: "02", title: "Dunkelheit", text: "Lichtgeschützt aufbewahren. UV-Strahlung und Lichteinfall können das Olivenöl oxidieren lassen." },
+              { num: "03", title: "Alle 6 Monate wenden", text: "Die Dosen regelmäßig um 180 Grad drehen, damit das Olivenöl das Fischfleisch gleichmäßig umgibt." },
+              { num: "04", title: "Trockene Umgebung", text: "Geringe Luftfeuchtigkeit wählen, um Korrosion und Rostansatz an den Doppelfalzen zu vermeiden." },
+              { num: "05", title: "Falzschutz & Vorsicht", text: "Stürze und Schläge vermeiden. Dellen an Falzkanten oder Aufreißlaschen zerstören die Versiegelung – solche Dosen sind unsicher und nicht lagerfähig!" },
+              { num: "06", title: "Kulinarische Orientierung", text: "Hersteller wie La Belle-Iloise verweisen bei Millésimés auf eine Reifezeit von mehreren Jahren (z. B. 3 bis 5 Jahre), bevor die Dose geöffnet wird; der ideale Genusszeitpunkt bleibt stets eine subjektive Geschmackspräferenz." },
+              { num: "07", title: "BfR-Sicherheitsprüfung", text: "Vor dem Verzehr prüfen: Aufgewölbte Dosen (Bombagen) oder undichte Falze dürfen unter keinen Umständen verzehrt oder gekostet werden (Botulismus-Risiko). Bei Zweifeln entsorgen!" }
             ].map((rule, idx) => (
               <div key={idx} className="bg-[#FAF9F6] p-6 rounded-2xl border border-slate-200/80 hover:border-amber-400/60 transition-all shadow-sm">
                 <span className="text-2xl font-serif font-bold text-amber-500">{rule.num}</span>
@@ -509,7 +548,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Embed Code Widget Box for Food Blogs */}
+      {/* Embed Code Widget Box with robust auto-resize script */}
       <section className="py-12 bg-[#0B1322] text-white border-y border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8">
@@ -521,7 +560,7 @@ export default function Home() {
                 </div>
                 <h3 className="text-xl font-serif font-bold text-white">Jahrgangssardinen-Reiferechner auf Ihrer Website einbinden</h3>
                 <p className="text-xs sm:text-sm text-slate-400 mt-1">
-                  Bieten Sie Ihren Lesern eine interaktive Reifegrad- und Pairing-Kalkulation per responsivem iFrame.
+                  Bieten Sie Ihren Lesern eine interaktive Reifegrad- und Lagerkalkulation per responsivem iFrame mit automatischem Höhenabgleich.
                 </p>
               </div>
               <button
@@ -533,7 +572,7 @@ export default function Home() {
               </button>
             </div>
             <div className="bg-slate-950 rounded-lg p-3 text-xs font-mono text-slate-300 overflow-x-auto border border-slate-800">
-              <code>{`<iframe src="https://jahrgangssardinen.de/rechner-embed" width="100%" height="680" style="border:none; border-radius:24px;" title="Jahrgangssardinen Reife-Rechner"></iframe>\n<p style="font-size:12px; color:#64748b; text-align:center;">Bereitgestellt von <a href="https://jahrgangssardinen.de" target="_blank" rel="noopener">jahrgangssardinen.de</a></p>`}</code>
+              <code>{`<iframe id="sardinen-rechner-frame" src="https://www.jahrgangssardinen.de/rechner-embed" width="100%" height="680" style="border:none; border-radius:24px; box-shadow:0 4px 20px rgba(0,0,0,0.08);" title="Jahrgangssardinen Reife- und Lagerrechner"></iframe>\n<script>\n  window.addEventListener('message', function(e) {\n    var allowedOrigins = ['https://www.jahrgangssardinen.de', 'https://jahrgangssardinen.de'];\n    if (!allowedOrigins.includes(e.origin)) return;\n    var frame = document.getElementById('sardinen-rechner-frame');\n    if (!frame || e.source !== frame.contentWindow) return;\n    if (e.data && e.data.type === 'jahrgangssardinen-embed-resize' && typeof e.data.height === 'number') {\n      var h = Math.min(Math.max(e.data.height, 350), 2200);\n      frame.style.height = h + 'px';\n    }\n  });\n</script>\n<p style="font-size:12px; color:#64748b; text-align:center; margin-top:8px;">Bereitgestellt von <a href="https://www.jahrgangssardinen.de" target="_blank" rel="noopener" style="color:#d97706; text-decoration:underline;">jahrgangssardinen.de</a></p>`}</code>
             </div>
           </div>
         </div>
@@ -548,7 +587,7 @@ export default function Home() {
               <span>Häufige Fragen</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-serif font-bold text-slate-950 tracking-tight">
-              Alles, was Sie über Vintage-Sardinen wissen müssen
+              Warenkunde &amp; Häufige Fragen
             </h2>
           </div>
 
@@ -558,7 +597,7 @@ export default function Home() {
               return (
                 <Card key={faq.id} className="bg-white border-slate-200 overflow-hidden shadow-sm hover:border-amber-400/50 transition-all">
                   <Collapsible open={isOpen} onOpenChange={() => setOpenFaq(isOpen ? "" : faq.id)}>
-                    <CollapsibleTrigger className="w-full p-6 text-left flex justify-between items-center space-x-4">
+                    <CollapsibleTrigger className="w-full p-6 text-left flex justify-between items-center space-x-4 cursor-pointer">
                       <span className="text-base sm:text-lg font-serif font-bold text-slate-900">
                         {faq.question}
                       </span>
@@ -586,7 +625,7 @@ export default function Home() {
               </div>
               <div>
                 <h4 className="text-xl font-serif font-bold text-slate-950">Fachredaktion jahrgangssardinen.de</h4>
-                <p className="text-xs sm:text-sm text-slate-500">Stand: September 2026 • Sensorisch &amp; lebensmitteltechnisch geprüft (Sardina pilchardus)</p>
+                <p className="text-xs sm:text-sm text-slate-500">Stand: 2026 • Redaktionelle Warenkunde &amp; Herstellerdokumentation (Sardina pilchardus)</p>
               </div>
             </div>
             <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-6 text-xs sm:text-sm text-slate-600">
@@ -600,16 +639,16 @@ export default function Home() {
               <div>
                 <div className="flex items-center gap-2 font-bold text-slate-900 mb-1">
                   <Award className="w-4 h-4 text-amber-600" />
-                  <span>Unabhängige Verkostungen</span>
+                  <span>Objektive Kriterien &amp; Warenkunde</span>
                 </div>
-                <p>Reines Informations- und Warenkundeportal nach § 5 DDG ohne eigene Händlermarke. Objektive Qualitätskriterien.</p>
+                <p>Reines Informations- und Warenkundeportal nach § 5 DDG ohne eigene Händlermarke. Faktenbasierte Kriterien nach Herstellerdokumentation.</p>
               </div>
               <div>
                 <div className="flex items-center gap-2 font-bold text-slate-900 mb-1">
                   <Sparkles className="w-4 h-4 text-amber-600" />
                   <span>Reifeprozess &amp; Lagerstandards</span>
                 </div>
-                <p>Sensorische Begleitung der molekularen Reifung im Olivenöl nach bretonischen und portugiesischen Kellerstandards.</p>
+                <p>Sensorische Begleitung der Reifung im Olivenöl nach bretonischen und portugiesischen Kellerstandards.</p>
               </div>
             </div>
           </div>
@@ -626,22 +665,22 @@ export default function Home() {
           </div>
 
           <h2 className="text-3xl sm:text-5xl font-serif font-bold text-white tracking-tight leading-tight">
-            Bereit für ein außergewöhnliches Geschmackserlebnis?
+            Traditionelle Konservenkunst entdecken
           </h2>
 
           <p className="text-slate-300 text-base sm:text-xl max-w-2xl mx-auto mt-6 leading-relaxed">
-            Wählen Sie noch heute Ihre Favoriten aus den besten europäischen Manufakturen und legen Sie den Grundstein für Ihre persönliche Vintage-Kollektion.
+            Finden Sie handverlesene Jahrgänge und Sorten renommierter europäischer Conserveries für Ihr nächstes Tasting.
           </p>
 
           <div className="mt-10">
             <Button
               asChild
               size="lg"
-              className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold px-10 py-5 rounded-2xl text-lg shadow-2xl shadow-amber-500/30 transition-all hover:scale-105"
+              className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold px-10 py-5 rounded-2xl text-lg shadow-2xl shadow-amber-500/30 transition-all hover:scale-105 cursor-pointer"
             >
               <a href="https://amzn.to/3HKUksF" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-3">
                 <ShoppingCart className="w-6 h-6" />
-                <span>Jetzt Premium-Sardinen kaufen*</span>
+                <span>Jahrgangssardinen ansehen*</span>
               </a>
             </Button>
           </div>

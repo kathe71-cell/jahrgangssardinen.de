@@ -28,19 +28,19 @@ export default function StickyMobileCTA() {
             <Sparkles className="w-4 h-4" />
           </div>
           <div>
-            <p className="text-xs font-bold font-serif text-amber-300">Vintage Sardinen</p>
-            <p className="text-[10px] text-slate-400">Geprüfte Premium-Sorten</p>
+            <p className="text-xs font-bold font-serif text-amber-300">Jahrgangssardinen</p>
+            <p className="text-[10px] text-slate-400">Traditionelle Jahrgangssorten</p>
           </div>
         </div>
 
         <Button
           asChild
           size="sm"
-          className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold px-4 py-2 text-xs rounded-xl shadow-md flex items-center gap-1.5 flex-shrink-0"
+          className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold px-4 py-2 text-xs rounded-xl shadow-md flex items-center gap-1.5 flex-shrink-0 cursor-pointer"
         >
           <a href="https://amzn.to/3HKUksF" target="_blank" rel="noopener noreferrer">
             <ShoppingCart className="w-3.5 h-3.5" />
-            <span>Jetzt kaufen*</span>
+            <span>Angebote ansehen*</span>
           </a>
         </Button>
       </div>

@@ -39,7 +39,7 @@ function _getCurrentPage(url) {
 }
 
 // Create a wrapper component that uses useLocation inside the Router context
-function PagesContent() {
+export function PagesContent() {
     const location = useLocation();
     const currentPage = _getCurrentPage(location.pathname);
 

@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { ChevronDown, HelpCircle, Clock, Gift, ShoppingCart, Star, Thermometer, Sparkles, Filter } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { ChevronDown, HelpCircle, Clock, Gift, ShoppingCart, HeartHandshake, Thermometer, AlertTriangle } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Button } from "@/components/ui/button";
 
 export default function FAQ() {
   const [openItems, setOpenItems] = useState(new Set(['faq-1']));
@@ -24,42 +22,49 @@ export default function FAQ() {
       id: 'faq-1',
       icon: HelpCircle,
       question: "Was genau sind Jahrgangssardinen?",
-      answer: "Jahrgangssardinen (französisch: Sardines de Millésime) sind speziell ausgewählte, fangfrische Sommer-Sardinen mit hohem Fettgehalt (>12%). Sie werden traditionell in kaltgepresstes Olivenöl extra eingelegt. Ähnlich wie ein Spitzenwein reifen sie über 3 bis 10+ Jahre in der Dose nach und entwickeln dabei eine butterweiche Textur und komplexe Aromen.",
+      answer: "Jahrgangssardinen (französisch: Sardines de Millésime) sind handverlesene Sommer-Sardinen (Sardina pilchardus) mit hohem natürlichem Fettgehalt (>12%). Sie werden fangfrisch gereinigt und unaufgetaut in kaltgepresstem Olivenöl extra eingelegt. Bei kühler, kontrollierter Lagerung reifen sie über mehrere Jahre nach und entwickeln eine butterzarte Textur und tiefe Umami-Aromen.",
       category: "Grundlagen"
     },
     {
       id: 'faq-2',
       icon: Thermometer,
       question: "Wie lagere ich meine Jahrgangssardinen richtig?",
-      answer: "Optimal ist ein kühler, dunkler Ort bei konstanten 12-15°C (z.B. Weinkeller oder Speisekammer). Wichtig: Wenden Sie die Dosen alle 6 Monate um 180 Grad, damit das Olivenöl den Fisch kontinuierlich von allen Seiten umschmeichelt.",
+      answer: "Optimal ist ein kühler, dunkler Ort bei konstanten 12–15 °C (z. B. Weinkeller oder kühler Vorratsraum). Wichtig: Wenden Sie die Dosen alle 6 Monate um 180 Grad, damit das Olivenöl den Fisch kontinuierlich von allen Seiten gleichmäßig benetzt.",
       category: "Lagerung"
     },
     {
       id: 'faq-3',
-      icon: Gift,
-      question: "Warum sind Jahrgangssardinen ein perfektes Geschenk?",
-      answer: "Jahrgangssardinen vereinen Gourmet-Genuss, historische Handwerkskunst und ästhetische Dosen-Illustrationen. Ein Jahrgang aus dem Geburtsjahr, Hochzeitstag oder Jubiläum ist ein persönliches und stilvolles Geschenk für Feinschmecker.",
-      category: "Geschenke"
+      icon: AlertTriangle,
+      question: "Wann darf eine ältere Konserve keinesfalls verzehrt werden?",
+      answer: "Gemäß den Empfehlungen des Bundesinstituts für Risikobewertung (BfR) dürfen aufgeblähte Dosen (Bombagen) oder Konserven mit beschädigten Doppelfalzen, Schweißnähten oder Rostansatz unter keinen Umständen verzehrt oder gekostet werden (Gefahr von Botulismus durch Clostridium botulinum). Nach dem Öffnen müssen Geruch und Farbe makellos sein; bei ranzigem, stechendem oder metallischem Geruch sofort entsorgen.",
+      category: "Sicherheit"
     },
     {
       id: 'faq-4',
-      icon: ShoppingCart,
-      question: "Wo kann ich original Jahrgangssardinen kaufen?",
-      answer: "Auf jahrgangssardinen.de finden Sie direkte Partnerlinks zu geprüften Anbietern wie Amazon und spezialisierten Gourmet-Händlern für die Marken Nuri, La Belle-Iloise und Conservas Ortiz.",
-      category: "Kauf"
+      icon: Gift,
+      question: "Warum sind Jahrgangssardinen ein persönliches Geschenk?",
+      answer: "Jahrgangssardinen verbinden traditionelle Manufakturkunst, Gourmet-Genuss und ansprechende Dosen-Illustrationen. Ein Jahrgang aus dem Geburtsjahr, Hochzeitsjahr oder Firmenjubiläum ist ein stilvolles, individuelles Präsent für Gourmets.",
+      category: "Geschenke"
     },
     {
       id: 'faq-5',
-      icon: Clock,
-      question: "Ab wann erreichen die Sardinen ihre optimale Reife?",
-      answer: "Nach 3 bis 5 Jahren ist die Mittelgräte so weich geworden, dass sie beim Verzehr schmilzt. Ab 7 bis 10 Jahren entsteht die höchste Geschmacksdichte mit nussig-butterigen Noten.",
-      category: "Reifung"
+      icon: ShoppingCart,
+      question: "Wo kann ich traditionelle Jahrgangssardinen kaufen?",
+      answer: "Auf jahrgangssardinen.de finden Sie transparente Partnerlinks zu etablierten Online-Händlern wie Amazon für renommierte Manufakturmarken wie Nuri, La Belle-Iloise und Conservas Ortiz sowie Tasting-Sortimente.",
+      category: "Kauf"
     },
     {
       id: 'faq-6',
-      icon: Star,
-      question: "Lohnt sich die Anschaffung als Wertanlage?",
-      answer: "Limitierte Jahrgänge in einwandfreiem Zustand steigen im Sammlerwert häufig um +300% bis +500% über einen Zeitraum von 10 Jahren, da sie nicht nachproduziert werden können.",
+      icon: Clock,
+      question: "Ab wann erreichen die Sardinen ihre optimale Reife?",
+      answer: "Hersteller von Millésimés (wie La Belle-Iloise) und Gastronomen nennen als unverbindliche Orientierung oft 3 bis 5 Jahre, da sich das native Olivenöl und die marinen Fette harmonisch verbinden und das Fischfleisch mürbe wird. Es handelt sich hierbei um eine subjektive Geschmacksorientierung: Die Dosen sind ab Werk verzehrfertig und können je nach Vorliebe jung und kernig oder über mehrere Jahre gereift genossen werden.",
+      category: "Reifung"
+    },
+    {
+      id: 'faq-7',
+      icon: HeartHandshake,
+      question: "Haben Jahrgangssardinen einen Sammlerwert oder eine Wertgarantie?",
+      answer: "Limitierte Künstlerdosen und spezielle Fangjahrgänge sind bei Liebhabern gesucht, da Jahresproduktionen rasch vergriffen sind. Es handelt sich jedoch um hochwertige Lebensmittel und keinesfalls um regulierte Finanzanlagen; ein privater Zweitmarkt unterliegt unvorhersehbaren Schwankungen und es gibt keinerlei Wertsteigerungsgarantie.",
       category: "Sammlerwert"
     }
   ];
@@ -96,13 +101,13 @@ export default function FAQ() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <div className="inline-flex items-center space-x-2 bg-amber-500/10 text-amber-400 border border-amber-500/30 px-3.5 py-1 rounded-full text-xs font-semibold uppercase tracking-widest mb-4">
             <HelpCircle className="w-4 h-4 text-amber-400" />
-            <span>Experten-Ratgeber</span>
+            <span>Warenkunde-Ratgeber</span>
           </div>
           <h1 className="text-3xl sm:text-5xl font-serif font-bold text-white mb-4 tracking-tight leading-tight">
             Häufig gestellte Fragen (FAQ)
           </h1>
           <p className="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-            Antworten auf die wichtigsten Fragen rund um Auswahl, Lagerung, Geschmack und Wertentwicklung edler Vintage-Sardinen.
+            Antworten auf die wichtigsten Fragen rund um Auswahl, Lagerung, Haltbarkeit, Geschmack und Sammlerkultur edler Jahrgangssardinen.
           </p>
         </div>
       </section>
@@ -117,7 +122,7 @@ export default function FAQ() {
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                   activeCategory === cat
                     ? "bg-slate-900 text-amber-400 shadow-md scale-105"
                     : "bg-white text-slate-600 hover:bg-slate-100 border border-slate-200"
@@ -136,7 +141,7 @@ export default function FAQ() {
               return (
                 <Card key={item.id} className="bg-white border-slate-200/80 shadow-sm overflow-hidden hover:border-amber-400/50 transition-all">
                   <Collapsible open={isOpen} onOpenChange={() => toggleItem(item.id)}>
-                    <CollapsibleTrigger className="w-full p-6 text-left flex items-start justify-between space-x-4">
+                    <CollapsibleTrigger className="w-full p-6 text-left flex items-start justify-between space-x-4 cursor-pointer">
                       <div className="flex items-start space-x-3">
                         <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-700 flex items-center justify-center flex-shrink-0 mt-0.5 border border-amber-200/60">
                           <Icon className="w-4 h-4" />
@@ -150,11 +155,10 @@ export default function FAQ() {
                           </h3>
                         </div>
                       </div>
-
                       <ChevronDown className={`w-5 h-5 text-amber-600 flex-shrink-0 transition-transform duration-200 ${isOpen ? 'transform rotate-180' : ''}`} />
                     </CollapsibleTrigger>
 
-                    <CollapsibleContent className="px-6 pb-6 text-slate-600 text-sm leading-relaxed border-t border-slate-100 pt-4 pl-17">
+                    <CollapsibleContent className="px-6 pb-6 text-slate-600 text-sm leading-relaxed border-t border-slate-100 pt-4">
                       {item.answer}
                     </CollapsibleContent>
                   </Collapsible>
@@ -162,23 +166,6 @@ export default function FAQ() {
               );
             })}
           </div>
-
-          {/* Bottom Call to Action */}
-          <div className="mt-16 bg-[#0B1322] text-white p-8 rounded-3xl text-center border border-slate-800 shadow-xl">
-            <h3 className="text-xl sm:text-2xl font-serif font-bold text-white mb-2">
-              Haben Sie noch offene Fragen?
-            </h3>
-            <p className="text-slate-300 text-sm mb-6 max-w-lg mx-auto">
-              Entdecken Sie jetzt unsere kuratierte Auswahl der besten Jahrgangssardinen Europas.
-            </p>
-            <Button asChild className="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-6 py-3 rounded-xl">
-              <a href="https://amzn.to/3HKUksF" target="_blank" rel="noopener noreferrer">
-                <ShoppingCart className="w-4 h-4 mr-2" />
-                Jahrgangssardinen durchsuchen*
-              </a>
-            </Button>
-          </div>
-
         </div>
       </section>
     </div>

@@ -4,11 +4,20 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogD
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 
-export default function CookieSettingsModal({ isOpen, onSave, onClose }) {
+export default function CookieSettingsModal({ isOpen, initialPreferences, onSave, onClose }) {
   const [preferences, setPreferences] = useState({
-    analytics: false,
-    marketing: false,
+    analytics: initialPreferences?.analytics || false,
+    marketing: initialPreferences?.marketing || false,
   });
+
+  React.useEffect(() => {
+    if (initialPreferences) {
+      setPreferences({
+        analytics: Boolean(initialPreferences.analytics),
+        marketing: Boolean(initialPreferences.marketing),
+      });
+    }
+  }, [initialPreferences, isOpen]);
 
   const handleSave = () => {
     onSave({

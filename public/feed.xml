@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>jahrgangssardinen.de – Das Gourmetsardinen Fachportal</title>
-    <link>https://jahrgangssardinen.de/</link>
-    <description>Fachwissen, Jahrgangsbewertungen und Reifetipps für Sardines Millésimées.</description>
+    <title>jahrgangssardinen.de – Warenkunde &amp; Einkaufsratgeber</title>
+    <link>https://www.jahrgangssardinen.de/</link>
+    <description>Warenkunde, Manufakturtradition, Reifephasen und BfR-Lagerstandards für Sardines de Millésime.</description>
     <language>de-DE</language>
-    <lastBuildDate>Mon, 07 Sep 2026 12:00:00 +0200</lastBuildDate>
-    <atom:link href="https://jahrgangssardinen.de/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 17 Sep 2026 12:00:00 +0200</lastBuildDate>
+    <atom:link href="https://www.jahrgangssardinen.de/feed.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Die Kunst der Reifung: Warum Jahrgangssardinen mit den Jahren besser werden</title>
-      <link>https://jahrgangssardinen.de/</link>
-      <guid>https://jahrgangssardinen.de/#reifung</guid>
-      <pubDate>Mon, 07 Sep 2026 10:00:00 +0200</pubDate>
-      <description>Wie natives Olivenöl und Fischfleisch über 5 bis 10 Jahre zu einer schmelzenden Textur verschmelzen.</description>
+      <title>Traditionelle Reifung: Wie sich Jahrgangssardinen in nativem Olivenöl entwickeln</title>
+      <link>https://www.jahrgangssardinen.de/</link>
+      <guid>https://www.jahrgangssardinen.de/#reifung</guid>
+      <pubDate>Thu, 17 Sep 2026 10:00:00 +0200</pubDate>
+      <description>Wie natives Olivenöl extra und fangfrische Sommersardinen bei kontrollierter Kellerlagerung eine zarte, mürbe Textur entwickeln.</description>
     </item>
   </channel>
 </rss>

@@ -13,7 +13,9 @@ export default function CookieConsentManager({ showSettings, setShowSettings }) 
     try {
       const storedConsent = localStorage.getItem(CONSENT_KEY);
       if (storedConsent) {
-        setConsent(JSON.parse(storedConsent));
+        const parsed = JSON.parse(storedConsent);
+        setConsent(parsed);
+        applyScripts(parsed);
       } else {
         setShowBanner(true);
       }
@@ -21,7 +23,32 @@ export default function CookieConsentManager({ showSettings, setShowSettings }) 
       console.error("Could not parse cookie consent from localStorage", error);
       setShowBanner(true);
     }
+
+    const handleOpenSettings = () => {
+      setShowSettings(true);
+    };
+
+    window.addEventListener('open-cookie-settings', handleOpenSettings);
+    return () => window.removeEventListener('open-cookie-settings', handleOpenSettings);
   }, []);
+
+  const applyScripts = (preferences) => {
+    if (preferences?.marketing) {
+      if (!document.getElementById('google-adsense-script')) {
+        const script = document.createElement('script');
+        script.id = 'google-adsense-script';
+        script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7078147966379221';
+        script.async = true;
+        script.crossOrigin = 'anonymous';
+        document.head.appendChild(script);
+      }
+    } else {
+      const existingScript = document.getElementById('google-adsense-script');
+      if (existingScript) {
+        existingScript.remove();
+      }
+    }
+  };
 
   const saveConsent = (preferences) => {
     const consentData = { ...preferences, timestamp: new Date().toISOString() };
@@ -30,8 +57,7 @@ export default function CookieConsentManager({ showSettings, setShowSettings }) 
       setConsent(consentData);
       setShowBanner(false);
       setShowSettings(false);
-      // Hier könnte man basierend auf `preferences` die Skripte laden
-      // if (preferences.analytics) { loadAnalytics(); }
+      applyScripts(consentData);
     } catch (error) {
        console.error("Could not save cookie consent to localStorage", error);
     }
@@ -45,14 +71,11 @@ export default function CookieConsentManager({ showSettings, setShowSettings }) 
     saveConsent({ necessary: true, analytics: false, marketing: false });
   };
 
-  if (consent && !showSettings) {
-    return null;
-  }
-
   return (
     <>
       <CookieSettingsModal
         isOpen={showSettings}
+        initialPreferences={consent}
         onSave={saveConsent}
         onClose={() => setShowSettings(false)}
       />

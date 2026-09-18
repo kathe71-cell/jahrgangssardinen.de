@@ -1,113 +1,143 @@
 import React, { useState } from "react";
-import { ShoppingCart, Star, Sparkles, Filter, Award, ShieldCheck, Flame, ChevronRight } from "lucide-react";
+import { ShoppingCart, Sparkles, Filter, ShieldCheck, Flame, ChevronRight, Scale, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const SARDINE_PRODUCTS = [
   {
     id: "nuri-extra-virgin",
     brand: "Nuri",
-    name: "Nuri Vintage Sardinen in Olivenöl",
+    producer: "Pinhais & Cia, Lda.",
+    name: "Nuri Sardinen in reinem Olivenöl",
     origin: "Matosinhos, Portugal",
     flag: "🇵🇹",
+    productType: "Traditionelle Manufakturware (zur Jahrgangs-Lagerung)",
     yearGroup: "3-7",
     flavor: "klassik",
-    rating: 4.9,
-    reviews: 1420,
-    priceRange: "4,90 € – 6,50 €",
-    badge: "Bestseller Kult-Sardine",
-    badgeColor: "bg-amber-500 text-slate-950 font-semibold",
-    tastingNotes: ["Butterweich", "Mildes Olivenöl", "Feines Meersalz"],
-    description: "Handverlesene Atlantik-Sardinen nach traditionellem Rezept von 1920. Perfekt ausbalanciert in nativem Olivenöl extra.",
+    weight: "125 g (Abtropfgewicht: 90 g)",
+    oil: "Reines Olivenöl, Meersalz",
+    primarySource: "Produktspezifikation Pinhais & Cia",
+    sourceLabel: "Produktspezifikation Pinhais & Cia",
+    sourceUrl: "https://www.conservaspinhais.pt",
+    priceRange: "Richtwert: ca. 4,90 € – 6,50 € (Stand 2026, Fachhandel)",
+    badge: "Klassisch in Olivenöl",
+    badgeColor: "bg-amber-100 text-amber-950 font-bold border border-amber-300",
+    tastingNotes: ["Mürbes Fleisch", "Mildes Olivenöl", "Feine Salznote"],
+    description: "Fangfrische Atlantik-Sardinen (Sardina pilchardus) nach traditionellem Manufakturverfahren von 1920. Beliebter Klassiker für die mehrjährige private Reifelagerung.",
     link: "https://amzn.to/3HQskUt",
     imageAlt: "Nuri Sardinen in Olivenöl Dose"
   },
   {
     id: "nuri-pikant",
     brand: "Nuri",
-    name: "Nuri Pikante Jahrgangssardinen mit Piri-Piri",
+    producer: "Pinhais & Cia, Lda.",
+    name: "Nuri Pikante Sardinen mit Piri-Piri & Gewürzen",
     origin: "Matosinhos, Portugal",
     flag: "🇵🇹",
+    productType: "Traditionelle Manufakturware (zur Jahrgangs-Lagerung)",
     yearGroup: "3-7",
     flavor: "pikant",
-    rating: 4.95,
-    reviews: 2150,
-    priceRange: "5,20 € – 7,10 €",
-    badge: "Sammler-Liebling",
-    badgeColor: "bg-red-600 text-white font-semibold",
-    tastingNotes: ["Angenehme Schärfe", "Nelke & Gurke", "Würziges Aroma"],
-    description: "Der Legenden-Klassiker mit einer ganzen Piri-Piri Schote, Piment, Nelke und Karotte in der Dose eingereift.",
+    weight: "125 g (Abtropfgewicht: 90 g)",
+    oil: "Olivenöl, Piri-Piri, Gurke, Karotte, Nelke, Lorbeer",
+    primarySource: "Produktspezifikation Pinhais & Cia",
+    sourceLabel: "Produktspezifikation Pinhais & Cia",
+    sourceUrl: "https://www.conservaspinhais.pt",
+    priceRange: "Richtwert: ca. 5,20 € – 7,10 € (Stand 2026, Fachhandel)",
+    badge: "Pikant mit Piri-Piri",
+    badgeColor: "bg-red-100 text-red-950 font-bold border border-red-300",
+    tastingNotes: ["Würzige Chili-Note", "Aromatisches Nelkenöl", "Pikante Tiefe"],
+    description: "Traditionelle Rezeptur mit einer ganzen Piri-Piri-Schote und Gewürzen, die während der kühlen Reifezeit ihre ätherischen Aromen an das Olivenöl abgeben.",
     link: "https://amzn.to/3HQskUt",
     imageAlt: "Nuri Pikante Sardinen Dose"
   },
   {
     id: "labelle-vintage",
     brand: "La Belle-Iloise",
-    name: "La Belle-Iloise Millésimée Vintage Edition",
-    origin: "Quiberon, Frankreich",
+    producer: "Conserverie La Belle-Iloise",
+    name: "La Belle-Iloise Sardines Millésimées (Jahrgangsauslese)",
+    origin: "Quiberon, Bretagne, Frankreich",
     flag: "🇫🇷",
+    productType: "Offizielle Jahrgangsauslese (Millésime mit Fangjahr)",
     yearGroup: "7-12",
     flavor: "klassik",
-    rating: 4.98,
-    reviews: 890,
-    priceRange: "8,50 € – 12,00 €",
-    badge: "Haute Gastronomie",
-    badgeColor: "bg-indigo-900 text-amber-300 font-semibold border border-amber-400/30",
-    tastingNotes: ["Seidiges Fischfleisch", "Nussiger Abgang", "Tiefe Reife"],
-    description: "Bretonische Spitzen-Handarbeit in nummerierten Jahrgangsdosen. Nach 5–10 Jahren Lagerung schmilzt die Gräte vollständig dahin.",
+    weight: "115 g (Abtropfgewicht: ca. 86 g)",
+    oil: "Natives Olivenöl Extra",
+    primarySource: "Katalog & Dokumentation Conserverie La Belle-Iloise",
+    sourceLabel: "Katalog & Spezifikation Conserverie La Belle-Iloise",
+    sourceUrl: "https://www.labelleiloise.fr",
+    priceRange: "Richtwert: ca. 8,50 € – 12,50 € (Stand 2026, Fachhandel)",
+    badge: "Offizieller Jahrgang (Millésime)",
+    badgeColor: "bg-indigo-100 text-indigo-950 font-bold border border-indigo-300",
+    tastingNotes: ["Seidiges Fleisch", "Nussige Nuancen", "Ausgeprägte Umami-Dichte"],
+    description: "Ausschließlich aus handselektierten Sommerfängen der bretonischen Küste mit hohem Fettgehalt. Gedost in nummerierten Künstlerdosen mit expliziter Jahrgangsausweisung.",
     link: "https://amzn.to/4mrVMPz",
     imageAlt: "La Belle-Iloise Vintage Sardinen"
   },
   {
     id: "ortiz-gran-reserva",
     brand: "Ortiz",
+    producer: "Conservas Ortiz S.A.",
     name: "Conservas Ortiz Sardinas A La Antigua",
     origin: "Baskenland, Spanien",
     flag: "🇪🇸",
+    productType: "Traditionelle Manufakturware (zur Jahrgangs-Lagerung)",
     yearGroup: "3-7",
     flavor: "klassik",
-    rating: 4.88,
-    reviews: 1780,
-    priceRange: "6,90 € – 9,50 €",
-    badge: "Baskische Tradition",
-    badgeColor: "bg-emerald-700 text-white font-semibold",
-    tastingNotes: ["Frisch gefangen", "Feine Struktur", "Reines Olivenöl"],
-    description: "Traditionell fangfrisch verarbeitet und per Hand eingelegt. Legendäre Konsistenz und eleganter maritimer Geschmack.",
+    weight: "140 g bzw. 190 g Glas / 115 g Dose",
+    oil: "Natives Olivenöl Extra, Salz",
+    primarySource: "Sortimentsdokumentation Conservas Ortiz S.A.",
+    sourceLabel: "Sortimentsdokumentation Conservas Ortiz S.A.",
+    sourceUrl: "https://www.conservasortiz.com",
+    priceRange: "Richtwert: ca. 6,90 € – 9,80 € (Stand 2026, Fachhandel)",
+    badge: "Traditionelle Handeinlegung",
+    badgeColor: "bg-emerald-100 text-emerald-950 font-bold border border-emerald-300",
+    tastingNotes: ["Feine Faserung", "Klares Olivenöl", "Elegante Meeresfrische"],
+    description: "Handwerklich schonend verarbeitet nach der Methode 'A La Antigua'. Das feste Fleisch gewinnt bei kontrollierter Kellerlagerung spürbar an Mürbheit.",
     link: "https://amzn.to/4lL1OKj",
     imageAlt: "Ortiz Vintage Sardinen"
   },
   {
     id: "pinhais-limited",
     brand: "Pinhais",
-    name: "Pinhais Artisanal Vintage Selection",
-    origin: "Portugal",
+    producer: "Pinhais & Cia, Lda.",
+    name: "Pinhais Sardinen in Olivenöl mit Zitrone",
+    origin: "Matosinhos, Portugal",
     flag: "🇵🇹",
+    productType: "Traditionelle Manufakturware (zur Jahrgangs-Lagerung)",
     yearGroup: "1-3",
     flavor: "zitrone",
-    rating: 4.92,
-    reviews: 640,
-    priceRange: "7,50 € – 10,50 €",
-    badge: "Handgemachte Rarität",
-    badgeColor: "bg-amber-700 text-amber-100 font-semibold",
-    tastingNotes: ["Frische Zitrone", "Maritime Frische", "Samtiges Öl"],
-    description: "Gepackt in der wohl berühmtesten Manufaktur Portugals. Jede Dose wird manuell in Seidenpapier gewickelt.",
+    weight: "125 g (Abtropfgewicht: 90 g)",
+    oil: "Olivenöl, frische Zitrone, Salz",
+    primarySource: "Produktspezifikation Pinhais & Cia",
+    sourceLabel: "Produktspezifikation Pinhais & Cia",
+    sourceUrl: "https://www.conservaspinhais.pt",
+    priceRange: "Richtwert: ca. 7,00 € – 9,50 € (Stand 2026, Fachhandel)",
+    badge: "Zitrone & Meersalz",
+    badgeColor: "bg-amber-100 text-amber-950 font-bold border border-amber-300",
+    tastingNotes: ["Fruchtige Zitrusnote", "Frischer Biss", "Feines Olivenöl"],
+    description: "Eingelegt mit echter Zitronenscheibe. Das Zusammenspiel aus feiner Fruchtsäure und marinem Fett eignet sich besonders für die ersten 1 bis 3 Lagerjahre.",
     link: "https://amzn.to/3HKUksF",
     imageAlt: "Pinhais Sardinen Zitrone"
   },
   {
     id: "nuri-box-set",
-    brand: "Nuri & Co",
-    name: "Gourmet Vintage Sardinen Sammler-Tasting-Box",
-    origin: "Portugal & Frankreich",
+    brand: "Sortiment",
+    producer: "Verschiedene Manufakturen",
+    name: "Gourmet Sardinen Tasting- & Probierset",
+    origin: "Portugal, Spanien, Frankreich",
     flag: "🇪🇺",
+    productType: "Suchidee / Sortimentsempfehlung",
     yearGroup: "7-12",
     flavor: "box",
-    rating: 4.97,
-    reviews: 410,
-    priceRange: "24,90 € – 39,90 €",
-    badge: "Perfektes Geschenk",
-    badgeColor: "bg-slate-900 text-amber-400 font-semibold border border-amber-500/40",
-    tastingNotes: ["Multi-Jahrgang", "Ideal zum Lagern", "Geschenkbox"],
-    description: "Exklusives Probierset für Jahrgangssardinen-Liebhaber und Sammler. Perfekt für Tasting-Abende mit Wein & Brot.",
+    weight: "Mehrteiliges Set (je 115–125 g pro Dose)",
+    oil: "Verschiedene Olivenöl-Rezepturen",
+    primarySource: "Zusammenstellung des Fachhandels",
+    sourceLabel: "Sortimentsübersicht der Manufakturen",
+    sourceUrl: "https://www.conservaspinhais.pt",
+    priceRange: "Richtwert: ca. 24,00 € – 39,00 € (Stand 2026, je nach Set-Umfang)",
+    badge: "Suchidee / Tasting-Sortiment",
+    badgeColor: "bg-slate-200 text-slate-900 font-bold border border-slate-300",
+    tastingNotes: ["Mehrere Manufakturen", "Vergleichsverkostung", "Geschenkidee"],
+    description: "Zusammenstellung verschiedener europäischer Manufakturen. Ideal für vergleichende Jahrgangs-Tastings oder als persönliches Gourmet-Geschenk.",
     link: "https://amzn.to/3HKUksF",
     imageAlt: "Jahrgangssardinen Geschenk-Box Set"
   }
@@ -135,19 +165,19 @@ export default function VintageExplorer() {
           <div>
             <div className="inline-flex items-center space-x-2 text-amber-400 text-xs sm:text-sm font-semibold uppercase tracking-widest bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/20 mb-3">
               <Sparkles className="w-4 h-4 text-amber-400" />
-              <span>Interaktiver Jahrgangs- & Geschmacks-Finder</span>
+              <span>Warenkunde &amp; Sorten-Explorer</span>
             </div>
             <h3 className="text-2xl sm:text-4xl font-serif font-bold text-white tracking-tight">
-              Finde deine perfekte Vintage-Sardine
+              Manufakturen &amp; Jahrgangssorten im Überblick
             </h3>
-            <p className="text-slate-400 text-sm sm:text-base mt-2 max-w-xl">
-              Wähle deinen bevorzugten Reifegrad oder Geschmacksstil für Empfehlungen direkt aus den besten Manufakturen Europas.
+            <p className="text-slate-400 text-sm sm:text-base mt-2 max-w-xl leading-relaxed">
+              Filtern Sie nach Reifehorizont und Geschmacksstil. Angaben basieren auf den Produktdaten der Hersteller.
             </p>
           </div>
 
           <div className="flex items-center space-x-2 text-xs text-slate-400 bg-slate-900/80 px-4 py-2.5 rounded-xl border border-slate-800">
             <ShieldCheck className="w-4 h-4 text-emerald-400 flex-shrink-0" />
-            <span>Verifizierte Originalware & Direkt-Verlinkung*</span>
+            <span>Transparente Produkt- &amp; Bezugsquellenübersicht*</span>
           </div>
         </div>
 
@@ -157,19 +187,19 @@ export default function VintageExplorer() {
           <div>
             <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-3 flex items-center gap-1.5">
               <Filter className="w-3.5 h-3.5 text-amber-400" />
-              <span>Nach Reifezeit filtern:</span>
+              <span>Nach Reifezeitraum filtern (Unverbindliche Orientierung):</span>
             </label>
             <div className="flex flex-wrap gap-2">
               {[
-                { key: "all", label: "Alle Reifegrade" },
-                { key: "1-3", label: "1–3 Jahre (Frisch & Knackig)" },
-                { key: "3-7", label: "3–7 Jahre (Gourmet Optimum)" },
-                { key: "7-12", label: "7–12+ Jahre (Vintage Rarität)" }
+                { key: "all", label: "Alle Reifezeiträume" },
+                { key: "1-3", label: "1–3 Jahre (Frische Textur)" },
+                { key: "3-7", label: "3–7 Jahre (Kulinarische Orientierung)" },
+                { key: "7-12", label: "7–12+ Jahre (Liebhaber-Horizont)" }
               ].map((tier) => (
                 <button
                   key={tier.key}
                   onClick={() => setSelectedAge(tier.key)}
-                  className={`px-3.5 py-2 rounded-xl text-xs font-medium transition-all duration-200 ${
+                  className={`px-3.5 py-2 rounded-xl text-xs font-medium transition-all duration-200 cursor-pointer ${
                     selectedAge === tier.key
                       ? "bg-amber-500 text-slate-950 font-bold shadow-lg shadow-amber-500/20 scale-[1.02]"
                       : "bg-slate-900/90 text-slate-300 hover:bg-slate-800 hover:text-white border border-slate-800"
@@ -190,15 +220,15 @@ export default function VintageExplorer() {
             <div className="flex flex-wrap gap-2">
               {[
                 { key: "all", label: "Alle Stile" },
-                { key: "klassik", label: "Pure Olivenöl Klassik" },
-                { key: "pikant", label: "Pikant & Chilli" },
+                { key: "klassik", label: "Reines Olivenöl" },
+                { key: "pikant", label: "Pikant & Chili" },
                 { key: "zitrone", label: "Zitrone & Meersalz" },
-                { key: "box", label: "Tasting Sets" }
+                { key: "box", label: "Tasting Sets (Suchidee)" }
               ].map((style) => (
                 <button
                   key={style.key}
                   onClick={() => setSelectedFlavor(style.key)}
-                  className={`px-3.5 py-2 rounded-xl text-xs font-medium transition-all duration-200 ${
+                  className={`px-3.5 py-2 rounded-xl text-xs font-medium transition-all duration-200 cursor-pointer ${
                     selectedFlavor === style.key
                       ? "bg-amber-500 text-slate-950 font-bold shadow-lg shadow-amber-500/20 scale-[1.02]"
                       : "bg-slate-900/90 text-slate-300 hover:bg-slate-800 hover:text-white border border-slate-800"
@@ -215,11 +245,11 @@ export default function VintageExplorer() {
         <div className="pt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProducts.length === 0 ? (
             <div className="col-span-full py-12 text-center bg-slate-900/50 rounded-2xl border border-slate-800">
-              <p className="text-slate-400 font-medium">Keine exakte Sardine für diese Filterkombination gefunden.</p>
+              <p className="text-slate-400 font-medium">Keine Produkte für diese Filterkombination vorhanden.</p>
               <Button
                 variant="link"
                 onClick={() => { setSelectedAge("all"); setSelectedFlavor("all"); }}
-                className="text-amber-400 mt-2 hover:underline"
+                className="text-amber-400 mt-2 hover:underline cursor-pointer"
               >
                 Filter zurücksetzen
               </Button>
@@ -232,7 +262,7 @@ export default function VintageExplorer() {
               >
                 <div>
                   {/* Top Header */}
-                  <div className="flex items-center justify-between gap-2 mb-4">
+                  <div className="flex items-center justify-between gap-2 mb-3">
                     <span className={`text-[11px] px-2.5 py-1 rounded-full ${product.badgeColor}`}>
                       {product.badge}
                     </span>
@@ -243,9 +273,27 @@ export default function VintageExplorer() {
                   </div>
 
                   {/* Product Title */}
-                  <h4 className="text-lg font-serif font-bold text-white group-hover:text-amber-400 transition-colors leading-snug mb-2">
+                  <h4 className="text-lg font-serif font-bold text-white group-hover:text-amber-400 transition-colors leading-snug mb-1.5">
                     {product.name}
                   </h4>
+
+                  {/* Product Metadata Box */}
+                  <div className="text-[11px] text-slate-400 space-y-1 mb-3 bg-slate-950/60 p-2.5 rounded-xl border border-slate-800/70">
+                    <p><strong className="text-slate-300">Hersteller:</strong> {product.producer}</p>
+                    <p><strong className="text-slate-300">Art:</strong> {product.productType}</p>
+                    <p className="flex items-center gap-1"><Scale className="w-3 h-3 text-amber-500" /> <span>{product.weight}</span></p>
+                    <p className="text-[10px] text-slate-400">
+                      <strong className="text-slate-300">Quelle:</strong>{" "}
+                      <a
+                        href={product.sourceUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-amber-400 hover:underline inline-flex items-center gap-0.5 font-medium"
+                      >
+                        {product.sourceLabel || product.primarySource} ↗
+                      </a>
+                    </p>
+                  </div>
 
                   <p className="text-xs text-slate-400 leading-relaxed mb-4">
                     {product.description}
@@ -265,23 +313,18 @@ export default function VintageExplorer() {
                 </div>
 
                 <div>
-                  {/* Rating & Price */}
-                  <div className="flex items-center justify-between border-t border-slate-800/80 pt-4 mb-4">
-                    <div className="flex items-center space-x-1 text-amber-400 text-xs font-semibold">
-                      <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
-                      <span>{product.rating}</span>
-                      <span className="text-slate-500 font-normal">({product.reviews})</span>
+                  {/* Price budget assumption notice */}
+                  <div className="border-t border-slate-800/80 pt-3.5 mb-4">
+                    <div className="flex items-start gap-1.5 text-xs text-amber-300 bg-amber-400/10 p-2 rounded-lg border border-amber-400/20">
+                      <Info className="w-3.5 h-3.5 text-amber-400 mt-0.5 shrink-0" />
+                      <span className="text-[11px] leading-tight font-medium">{product.priceRange}</span>
                     </div>
-
-                    <span className="text-xs font-bold text-amber-300 bg-amber-400/10 px-2.5 py-1 rounded-lg border border-amber-400/20">
-                      ~ {product.priceRange}
-                    </span>
                   </div>
 
                   {/* Buy Button */}
                   <Button
                     asChild
-                    className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold py-2.5 rounded-xl shadow-lg shadow-amber-500/15 group-hover:shadow-amber-500/30 transition-all flex items-center justify-center text-sm"
+                    className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold py-2.5 rounded-xl shadow-lg shadow-amber-500/15 group-hover:shadow-amber-500/30 transition-all flex items-center justify-center text-sm cursor-pointer"
                   >
                     <a
                       href={product.link}
@@ -290,7 +333,7 @@ export default function VintageExplorer() {
                       className="flex items-center justify-center space-x-2"
                     >
                       <ShoppingCart className="w-4 h-4" />
-                      <span>Bei Amazon ansehen*</span>
+                      <span>Angebot bei Amazon ansehen*</span>
                       <ChevronRight className="w-4 h-4 ml-1 opacity-70 group-hover:translate-x-1 transition-transform" />
                     </a>
                   </Button>

@@ -3,6 +3,17 @@
   "framework": "vite",
   "redirects": [
     {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "jahrgangssardinen.de"
+        }
+      ],
+      "destination": "https://www.jahrgangssardinen.de/$1",
+      "permanent": true
+    },
+    {
       "source": "/en",
       "destination": "/",
       "permanent": true

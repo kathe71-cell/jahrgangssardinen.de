@@ -27,11 +27,11 @@ export default function Layout({ children, currentPageName }) {
   };
 
   const legalPages = [
-    { name: "FAQ", page: "FAQ" },
-    { name: "Impressum", page: "Impressum" },
-    { name: "Datenschutz", page: "Datenschutz" },
-    { name: "AGB", page: "AGB" },
-    { name: "Cookie-Richtlinie", page: "Cookie" }
+    { name: "FAQ", page: "faq" },
+    { name: "Impressum", page: "impressum" },
+    { name: "Datenschutz", page: "datenschutz" },
+    { name: "AGB", page: "agb" },
+    { name: "Cookie-Richtlinie", page: "cookie" }
   ];
 
   // SVG Favicon with Vintage Gold Fish design
@@ -247,7 +247,7 @@ export default function Layout({ children, currentPageName }) {
                 Top-Hersteller
               </a>
               <Link
-                to="/FAQ"
+                to="/faq"
                 className={`text-sm font-medium transition-colors hover:text-amber-400 ${
                   currentPageName === 'FAQ' ? 'text-amber-400 font-semibold' : 'text-slate-300'
                 }`}
@@ -336,7 +336,7 @@ export default function Layout({ children, currentPageName }) {
                   </a>
                 </li>
                 <li>
-                  <Link to="/FAQ" onClick={scrollToTop} className="hover:text-amber-400 transition-colors">
+                  <Link to="/faq" onClick={scrollToTop} className="hover:text-amber-400 transition-colors">
                     Häufige Fragen (FAQ)
                   </Link>
                 </li>

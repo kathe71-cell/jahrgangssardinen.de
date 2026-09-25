@@ -51,19 +51,6 @@ export default function Impressum() {
               </CardContent>
             </Card>
 
-            {/* Umsatzsteuer */}
-            <Card className="bg-white border-slate-200 shadow-sm">
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-3 text-lg font-serif">
-                  <Landmark className="w-5 h-5 text-amber-600" />
-                  <span>Umsatzsteuer</span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="text-slate-700 text-sm">
-                <p>Als Kleinunternehmer gemäß § 19 UStG wird keine Umsatzsteuer berechnet.</p>
-              </CardContent>
-            </Card>
-
             {/* Online-Streitbeilegung */}
             <Card className="bg-white border-slate-200 shadow-sm">
               <CardHeader>

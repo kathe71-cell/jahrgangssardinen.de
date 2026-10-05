@@ -38,7 +38,6 @@ export default function Datenschutz() {
                 <strong>Jens Kathe</strong><br />
                 Hansastraße 6, 34119 Kassel, Deutschland<br />
                 E-Mail: <a href="mailto:jens@kathe.org" className="text-amber-700 underline font-medium">jens@kathe.org</a><br />
-                Telefon: +49 178 6652623<br />
                 Vollständige Angaben siehe <a href="/impressum" className="text-amber-700 underline font-medium">Impressum</a>.
               </p>
             </div>

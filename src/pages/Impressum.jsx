@@ -31,7 +31,6 @@ export default function Impressum() {
               <CardContent className="space-y-1 text-slate-700 text-sm">
                 <p className="font-bold text-slate-900">Jens Kathe</p>
                 <p>Hansastrasse 6, 34119 Kassel</p>
-                <p>Telefon: +49 178 6652623</p>
                 <p>E-Mail: jens@kathe.org</p>
               </CardContent>
             </Card>

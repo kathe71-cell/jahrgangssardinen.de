@@ -1,3 +1,4 @@
+import Projektuebernahme from "./Projektuebernahme";
 import Layout from "./Layout.jsx";
 
 import Home from "./Home";
@@ -16,6 +17,7 @@ import RechnerEmbed from "./RechnerEmbed";
 import { BrowserRouter as Router, Route, Routes, useLocation, Navigate } from 'react-router-dom';
 
 const PAGES = {
+    Projektuebernahme: Projektuebernahme,
     Home: Home,
     FAQ: FAQ,
     Impressum: Impressum,

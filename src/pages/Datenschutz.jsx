@@ -80,14 +80,10 @@ export default function Datenschutz() {
               </p>
             </div>
 
-            {/* 4. Google AdSense */}
             <div>
-              <h2 className="text-xl font-serif font-bold text-slate-900 mb-2">4. Werbeeinbindung über Google AdSense</h2>
               <p>
-                Diese Website nutzt bei entsprechender Einwilligung den Werbedienst <strong>Google AdSense</strong> der Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland („Google“).
               </p>
               <p className="mt-2">
-                Google AdSense verwendet Cookies und Web-Beacons, um Werbeanzeigen basierend auf früheren Besuchen auszuliefern. Wenn Sie in unserem Cookie-Banner die Option <em>„Nur Essenzielle“</em> wählen, wird das AdSense-Skript <strong>nicht geladen</strong> und es werden keine entsprechenden Werbe-Cookies auf Ihrem Endgerät gesetzt.
               </p>
               <p className="mt-2">
                 <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. a DSGVO bzw. § 25 Abs. 1 TDDDG (Einwilligung). Sie können Ihre Einwilligung jederzeit mit Wirkung für die Zukunft über unsere Cookie-Einstellungen anpassen oder widerrufen.

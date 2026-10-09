@@ -54,7 +54,7 @@ for (const route of routesToPrerender) {
     let rendered = template.replace('<div id="root"></div>', `<div id="root">${appHtml}</div>`);
     rendered = rendered.replace(/<title>.*?<\/title>/, `<title>${route.title}</title>`);
     rendered = rendered.replace(/<meta name="description" content=".*?" \/>/, `<meta name="description" content="${route.desc}" />`);
-    const fullUrl = `https://www.jahrgangssardinen.de${route.url === '/' ? '' : route.url}`;
+    const fullUrl = `https://jahrgangssardinen.de${route.url === '/' ? '' : route.url}`;
     rendered = rendered.replace(/<link rel="canonical" href=".*?" \/>/, `<link rel="canonical" href="${fullUrl}" />`);
     rendered = rendered.replace(/<meta property="og:url" content=".*?" \/>/, `<meta property="og:url" content="${fullUrl}" />`);
     rendered = rendered.replace(/<meta property="og:title" content=".*?" \/>/, `<meta property="og:title" content="${route.title}" />`);
@@ -73,3 +73,32 @@ for (const route of routesToPrerender) {
 }
 
 console.log('Prerendering complete!');
+
+
+// --- Auto-injected Dynamic Sitemap ---
+try {
+  let routeKeys = [];
+  if (Array.isArray(routesToPrerender)) {
+    routeKeys = routesToPrerender.map(r => r.url || r.path);
+  } else {
+    routeKeys = Object.keys(routesToPrerender);
+  }
+
+  const sitemapUrlset = routeKeys
+    .filter(url => url && !url.includes('404') && !url.includes('embed'))
+    .map(url => {
+      let loc = `https://jahrgangssardinen.de${url === '/' ? '' : url}`;
+      let priority = url === '/' ? '1.0' : '0.8';
+      const today = new Date().toISOString().split('T')[0];
+      return `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
+    }).join('\n');
+
+  const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrlset}\n</urlset>`;
+
+  fs.writeFileSync(toAbsolute('dist/sitemap.xml'), sitemapXml);
+  fs.writeFileSync(toAbsolute('public/sitemap.xml'), sitemapXml);
+  console.log('  - Generated dynamic sitemap.xml for ' + 'jahrgangssardinen.de');
+} catch (e) {
+  console.error('Error generating sitemap:', e.message);
+}
+// -----------------------------------

@@ -48,9 +48,7 @@ export default function CookiePage() {
                 </div>
 
                 <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200">
-                  <h3 className="font-bold text-slate-900 text-sm">2. Marketing &amp; Werbeanzeigen (Google AdSense)</h3>
                   <p className="text-xs text-slate-600 mt-1">
-                    Dient der Ausspielung werblicher Anzeigen über Google AdSense. Diese Cookies werden <strong>ausschließlich nach Ihrer ausdrücklichen Einwilligung</strong> geladen. Bei der Auswahl von „Nur Essenzielle“ wird kein AdSense-Skript geladen. Rechtsgrundlage: § 25 Abs. 1 TDDDG i.V.m. Art. 6 Abs. 1 lit. a DSGVO.
                   </p>
                 </div>
 
